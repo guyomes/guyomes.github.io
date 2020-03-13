@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!--
+               Copyright (C) 2019 Guillaume Moroz
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+                 http://www.gnu.org/licenses/
+-->
+<html>
+    <head>
+        <title> Futoshiki </title>
+        <style>
+            :root {
+                --n: 7;
+            }
+        </style>
+        <script>
+            var numbers = [ [1, 3, 6], [1, 5, 2], [2, 4, 3], [3, 1, 4], [3, 7, 7], 
+                            [4, 2, 1], [4, 6, 3], [5, 1, 3], [5, 7, 5], [6, 4, 2],
+                            [7, 3, 3], [7, 5, 4]];
+            var horizontal = [ [2, 2, "<"], [2, 5, "<"], [4, 4, ">"], [6, 1, ">"], [6, 4, "<"], [6, 6, ">"] ];
+            var vertical = [ [4, 1, ">"], [1, 3, ">"], [4, 3, ">"], [5, 6, ">"]];
+        </script>
+        <link rel="stylesheet" type="text/css" href="futoshiki.css">
+        <script src="futoshiki.js"></script>
+    </head>
+    <body onload="loadGame(numbers, horizontal, vertical)">
+    </body>
+</html>
