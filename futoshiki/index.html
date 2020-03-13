@@ -119,6 +119,7 @@ the Free Software Foundation, either version 2 of the License, or
             .side .square {
                 display: flex;
                 border: 1px solid;
+                border-color: black;
                 width: var(--side);
                 height: var(--side);
                 font-size: calc(var(--side));
@@ -131,6 +132,10 @@ the Free Software Foundation, either version 2 of the License, or
             /*side variable style*/
             .side .strikeout {
                 font-size: 0;
+            }
+
+            .side .alert {
+                color: red;
             }
 
             .side .highlight {
@@ -418,24 +423,38 @@ the Free Software Foundation, either version 2 of the License, or
                     } else {
                         board_side[i].classList.remove("strikeout");
                     }
+                    if(num.classList.contains("alert")) {
+                        board_side[i].classList.add("alert");
+                    } else {
+                        board_side[i].classList.remove("alert");
+                    }
                 }
             }
 
-            //TODO : update hilight when guess changes in a square
             function toggleGuess(element) {
                 if(selected_element == null) {
                     return;
                 }
-                var num = element.getAttribute("num");
+                var num = parseInt(element.getAttribute("num"));
                 var row = parseInt(selected_element.getAttribute("row"));
                 var col = parseInt(selected_element.getAttribute("col"));
                 element.classList.toggle("strikeout");
                 selected_element.childNodes[num].classList.toggle("hide");
                 var count = 0;
                 var unique = 0;
+                console.log(num);
+                console.log(checkLatinRow(row,col,num));
+                if(!checkLatinRow(row, col, num)
+                   || !checkLatinCol(row, col, num)
+                   || !checkIneq(row, col, num)) {
+                    selected_element.childNodes[num].classList.add("alert");
+                    element.classList.add("alert");
+                } else {
+                    selected_element.childNodes[num].classList.remove("alert");
+                    element.classList.remove("alert");
+                }
                 for(i = 0; i < n; i++) {
                     selected_element.childNodes[i].classList.remove("unique");
-                    selected_element.childNodes[i].classList.remove("alert");
                     if(selected_element.childNodes[i].classList.contains("hide")) {
                         count += 1;
                     } else {
@@ -444,11 +463,6 @@ the Free Software Foundation, either version 2 of the License, or
                 }
                 if(count == n-1) {
                     selected_element.childNodes[unique].classList.add("unique");
-                    if(!checkLatinRow(row, col, unique)
-                       || !checkLatinCol(row, col, unique)
-                       || !checkIneq(row, col, unique)) {
-                        selected_element.childNodes[unique].classList.add("alert");
-                    }
                 }
                 // update highlight
                 selected_element.classList.remove("highlight");
