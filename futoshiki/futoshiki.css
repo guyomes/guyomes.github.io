@@ -1,15 +1,41 @@
 :root {
     --ratio_square: 80;
     --ratio_gap:    20;
-    --unit: calc(100vmin/(var(--n)*var(--ratio_square) + (var(--n) + 1)*var(--ratio_gap)));
+}
+
+@media (orientation:portrait) and (max-aspect-ratio: 2/3) {
+    :root {
+        --unit: calc(100vw/(var(--n)*var(--ratio_square) + (var(--n) + 1)*var(--ratio_gap)));
+    }
+}
+
+@media (orientation:portrait) and (min-aspect-ratio: 2/3) {
+    :root {
+        --unit: calc((200vh/3)/(var(--n)*var(--ratio_square) + (var(--n) + 1)*var(--ratio_gap)));
+    }
+}
+
+@media (orientation:landscape) and (min-aspect-ratio: 11/7) {
+    :root {
+        --unit: calc(100vh/(var(--n)*var(--ratio_square) + (var(--n) + 1)*var(--ratio_gap)));
+    }
+}
+
+@media (orientation:landscape) and (max-aspect-ratio: 11/7) {
+    :root {
+        --unit: calc((700vw/11)/(var(--n)*var(--ratio_square) + (var(--n) + 1)*var(--ratio_gap)));
+    }
+}
+
+:root {
     --gap: calc(var(--unit)*var(--ratio_gap));
     --square: calc(var(--unit)*var(--ratio_square));
     --cell: calc(var(--gap) + var(--square));
     --edge: calc(var(--cell)*var(--n) - var(--gap));
     --side: calc(var(--edge) / 7);
-    --left: calc((100vw - var(--edge))/2);
-    --sideleft: calc((100vmin - 3*var(--side) - 3px)/2);
-    --sidetop: calc((100vmin - 3*var(--side) - 3px)/2);
+    --left: calc((100vmin - var(--edge))/2);
+    --sideleft: calc((100vmin - 3*var(--side))/2);
+    --sidetop: calc((100vmin - 3*var(--side))/2);
 }
 
 body {
@@ -41,7 +67,7 @@ body {
 
     .theme_pad .button_highlight {
         bottom: calc(var(--side) + var(--gap));
-        left: calc(var(--sideleft) + 3*(var(--side) + 1px) + var(--gap));
+        left: calc(var(--sideleft) + 3*(var(--side)) + var(--gap));
     }
 
     .theme_pad .button_undo {
@@ -62,17 +88,17 @@ body {
     }
 
     .theme_pad .grid {
-        top: var(--gap);
+        top: var(--left);
         left: calc(1*var(--cell));
     }
 
     .theme_pad .button_highlight {
-        right: calc(var(--gap) + var(--side) + 1px);
+        right: calc(var(--gap) + var(--side));
         top: calc(var(--sidetop) - var(--gap) - var(--side));
     }
 
     .theme_pad .button_undo {
-        right: calc(var(--gap) + var(--side) + 1px);
+        right: calc(var(--gap) + var(--side));
         top: calc(var(--sidetop) + var(--gap) + 3*var(--side));
     }
 }
@@ -82,16 +108,12 @@ body {
     position: absolute;
     width: var(--side);
     height: var(--side);
-    border: 1px solid;
-    background-color: lightgray;
 }
 
 .button_undo {
     position: absolute;
     width: var(--side);
     height: var(--side);
-    border: 1px solid;
-    background-color: white;
 }
 
 body .focus {
@@ -111,17 +133,18 @@ body .focus {
     position: absolute;
     display: flex;
     flex-wrap: wrap;
-    width: calc(3*var(--side) + 3px);
-    height: calc(3*var(--side) + 3px);
+    width: calc(3*var(--side));
+    height: calc(3*var(--side));
     justify-content: left;
     align-items: center;
     text-align: center;
+    border: 1px solid;
+    border-color: black;
+    color: gray;
 }
 
 .side .square {
     display: flex;
-    border: 1px solid;
-    border-color: black;
     width: var(--side);
     height: var(--side);
     font-size: calc(var(--side));
@@ -136,15 +159,19 @@ body .focus {
     background-color: lightgray;
 }
 
+.theme_pad .mode_highlight {
+    color: black;
+}
+
 .side .strikeout {
-    /*font-size: 0;
-    background: linear-gradient(to top left,
+    font-size: 0;
+    /*background: linear-gradient(to top left,
                                 rgba(0,0,0,0) 0%,
                                 rgba(0,0,0,0) calc(50% - 2px),
                                 rgba(0,0,0,1) 50%,
                                 rgba(0,0,0,0) calc(50% + 2px),
                                 rgba(0,0,0,0) 100%);*/
-    background-color: black;
+    /*background-color: black;*/
 }
                             
 

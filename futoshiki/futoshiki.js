@@ -15,6 +15,10 @@ var board_horizontal = Array.from(Array(n), () => new Array(n));
 var board_vertical = Array.from(Array(n), () => new Array(n));
 var board_side = new Array(n);
 var board_highlight = null;
+var board_undo = null;
+var delta = 10;
+var rotation = 0;
+var board_side = null;
 var undo_list = [];
 var ineq = new Object();
 ineq["<"] = document.createTextNode("<");
@@ -24,15 +28,17 @@ var selected_element = null;
 
 // Menu drawing : Edit, Guess, Highlight, Undo, Choose
 function createMenu() {
-    var highlight = document.createElement("div");
+    var highlight = document.createElement("img");
     highlight.classList.add("button_highlight");
+    highlight.setAttribute('src', '/futoshiki/highlighter.svg');
     highlight.setAttribute('onmousedown', 'modeHighlight()');
     highlight.setAttribute('ontouchstart', 'modeHighlight(); event.preventDefault()');
     document.body.appendChild(highlight);
     board_highlight = highlight;
 
-    var undo = document.createElement("div");
+    var undo = document.createElement("img");
     undo.classList.add("button_undo");
+    undo.setAttribute('src', '/futoshiki/undo.svg');
     undo.setAttribute('onmousedown', 'actionUndo()');
     undo.setAttribute('ontouchstart', 'actionUndo(); event.preventDefault()');
     document.body.appendChild(undo);
@@ -48,10 +54,12 @@ function createMenu() {
 function createSide() {
     var side = document.createElement("div");
     side.classList.add("side");
+    board_side = side;
     document.body.appendChild(side);
     for(i = 0; i < n; i++) {
         square = document.createElement("div")
         square.classList.add("square");
+        square.classList.add("strikeout");
         square.setAttribute('num', i)
         num_content = document.createTextNode(i+1);
         square.appendChild(num_content);
@@ -112,6 +120,8 @@ function actionUndo() {
 
     select(board_square[i][j]);
     toggleGuess(board_side[num]);
+    rotation -= 2*delta;
+    board_undo.style.transform = "rotate("+ rotation + "deg)";
     if(!alert) {
         board_square[i][j].childNodes[num].classList.remove("alert");
         board_side[num].classList.remove("alert");
@@ -120,23 +130,34 @@ function actionUndo() {
 }
 
 function modeGuess() {
-    if(board_highlight != null) {
-        board_highlight.classList.remove("focus");
-    }
+    board_side.classList.remove("mode_highlight");
+    board_highlight.classList.remove("focus");
+    var is_highlighted = false;
     for(i = 0; i < n; i++) {
         board_side[i].setAttribute('onmousedown', 'toggleGuess(this)');
         board_side[i].setAttribute('ontouchstart', 'toggleGuess(this); event.preventDefault()');
+        if(board_side[i].classList.contains("highlight")) {
+            board_side[i].classList.remove("highlight");
+            is_highlighted = true;
+        }
     }
+    if(is_highlighted) {
+        for(i = 0; i < n; i++) {
+            for(j = 0; j < n; j++) {
+                board_square[i][j].classList.remove("highlight");
+            }
+        }
+    }
+
 }
 
 function modeHighlight() {
+    board_side.classList.add("mode_highlight");
     if(selected_element != null) {
         selected_element.classList.remove("focus");
         selected_element = null;
     }
-    if(board_highlight != null) {
-        board_highlight.classList.add("focus");
-    }
+    board_highlight.classList.add("focus");
     for(i = 0; i < n; i++) {
         board_side[i].setAttribute('onmousedown', 'toggleHighlight(this)');
         board_side[i].setAttribute('ontouchstart', 'toggleHighlight(this); event.preventDefault()');
@@ -269,6 +290,8 @@ function toggleGuess(element) {
             break;
         }
     }
+    rotation += delta;
+    board_undo.style.transform = "rotate("+ rotation + "deg)";
     undo_list.push([row, col, num, was_alert]);
 }
 
