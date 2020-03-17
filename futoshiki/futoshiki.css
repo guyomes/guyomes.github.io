@@ -1,6 +1,7 @@
 :root {
     --ratio_square: 80;
     --ratio_gap:    20;
+    --n: 9;
 }
 
 @media (orientation:portrait) and (max-aspect-ratio: 2/3) {
@@ -74,6 +75,16 @@ body {
         bottom: calc(var(--side) + var(--gap));
         left: calc(var(--sideleft) - var(--gap) - var(--side));
     }
+
+    .theme_pad .button_harder {
+        bottom: calc(var(--side) + var(--gap));
+        left: calc(var(--sideleft) + 3*(var(--side)) + var(--gap));
+    }
+
+    .theme_pad .button_easier {
+        bottom: calc(var(--side) + var(--gap));
+        left: calc(var(--sideleft) - var(--gap) - var(--side));
+    }
 }
 
 @media (orientation:landscape) {
@@ -101,6 +112,18 @@ body {
         right: calc(var(--gap) + var(--side));
         top: calc(var(--sidetop) + var(--gap) + 3*var(--side));
     }
+
+    .theme_pad .button_harder {
+        right: calc(var(--gap) + var(--side));
+        top: calc(var(--sidetop) - var(--gap) - var(--side));
+        transform: rotate(-90deg);
+    }
+
+    .theme_pad .button_easier {
+        right: calc(var(--gap) + var(--side));
+        top: calc(var(--sidetop) + var(--gap) + 3*var(--side));
+        transform: rotate(-90deg);
+    }
 }
 
 /*Menu buttons*/
@@ -114,6 +137,26 @@ body {
     position: absolute;
     width: var(--side);
     height: var(--side);
+}
+
+.button_harder {
+    display: flex;
+    position: absolute;
+    width: var(--side);
+    height: var(--side);
+    font-size: var(--side);
+    justify-content: center;
+    align-items: center;
+}
+
+.button_easier {
+    display: flex;
+    position: absolute;
+    width: var(--side);
+    height: var(--side);
+    font-size: var(--side);
+    justify-content: center;
+    align-items: center;
 }
 
 body .focus {
@@ -143,6 +186,16 @@ body .focus {
     color: gray;
 }
 
+.side .label {
+    display: flex;
+    width: calc(3*var(--side));
+    height: var(--side);
+    font-size: calc(var(--side)*0.7);
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
 .side .square {
     display: flex;
     width: var(--side);
@@ -151,7 +204,10 @@ body .focus {
     justify-content: center;
     align-items: center;
     text-align: center;
-    margin: 0 -1px -1px 0;
+}
+
+body .focus_light {
+    background-color: lightgray;
 }
 
 /*side variable style*/
@@ -196,11 +252,12 @@ body .focus {
 .cell .right {
     display: flex;
     font-size: var(--square);
+    font-weight: bold;
     width: var(--gap);
     height: var(--square);
     justify-content: center;
     align-items: center;
-    transform: scale(0.2, 1);
+    transform: scale(0.2, 0.8);
 }
 
 .cell .below {
@@ -208,9 +265,10 @@ body .focus {
     width: var(--square);
     height: var(--gap);
     font-size: var(--square);
+    font-weight: bold;
     justify-content: center;
     align-items: center;
-    transform: rotate(90deg) scale(0.2, 1);
+    transform: rotate(90deg) scale(0.2, 0.8);
 }
 
 /*squares*/
@@ -224,6 +282,7 @@ body .focus {
     align-items: top;
     text-align: center;
     margin: -1px;
+    font-size: calc(var(--square)*0.5);
 }
 
 /*squares variable style*/
@@ -234,6 +293,12 @@ body .focus {
 
 .cell .highlight {
     background-color: lightgray;
+}
+
+.cell .center {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 /*number default style*/

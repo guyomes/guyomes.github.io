@@ -9,7 +9,11 @@ the Free Software Foundation, either version 2 of the License, or
 *******************************************************************/
 
 // Global variables
-var n = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--n'));
+var difficultyLabels = ["&#9733;", "&#9733; &#9733;", "&#9733; &#9733; &#9733;"];
+var difficulty = 1;
+var size = 7;
+//var n = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--n'));
+var n = 9;
 var board_square = Array.from(Array(n), () => new Array(n));
 var board_horizontal = Array.from(Array(n), () => new Array(n));
 var board_vertical = Array.from(Array(n), () => new Array(n));
@@ -18,7 +22,7 @@ var board_highlight = null;
 var board_undo = null;
 var delta = 10;
 var rotation = 0;
-var board_side = null;
+var board_side_main = null;
 var undo_list = [];
 var ineq = new Object();
 ineq["<"] = document.createTextNode("<");
@@ -130,7 +134,7 @@ function actionUndo() {
 }
 
 function modeGuess() {
-    board_side.classList.remove("mode_highlight");
+    board_side_main.classList.remove("mode_highlight");
     board_highlight.classList.remove("focus");
     var is_highlighted = false;
     for(i = 0; i < n; i++) {
@@ -152,7 +156,7 @@ function modeGuess() {
 }
 
 function modeHighlight() {
-    board_side.classList.add("mode_highlight");
+    board_side_main.classList.add("mode_highlight");
     if(selected_element != null) {
         selected_element.classList.remove("focus");
         selected_element = null;
@@ -213,15 +217,15 @@ function setBoardNumber(i, j, k) {
 }
 
 // fill board with a game given by 3 arrays
-function loadBoard(numbers, horizontal, vertical) {
+function loadBoard(numbers, horizontals, verticals) {
     for(i = 0; i < numbers.length; i++) {
         setBoardNumber(numbers[i][0], numbers[i][1], numbers[i][2]);
     }
-    for(i = 0; i < horizontal.length; i++) {
-        board_horizontal[horizontal[i][0]-1][horizontal[i][1]-1].appendChild(ineq[horizontal[i][2]].cloneNode());
+    for(i = 0; i < horizontals.length; i++) {
+        board_horizontal[horizontals[i][0]-1][horizontals[i][1]-1].appendChild(ineq[horizontals[i][2]].cloneNode());
     }
-    for(i = 0; i < vertical.length; i++) {
-        board_vertical[vertical[i][0]-1][vertical[i][1]-1].appendChild(ineq[vertical[i][2]].cloneNode());
+    for(i = 0; i < verticals.length; i++) {
+        board_vertical[verticals[i][0]-1][verticals[i][1]-1].appendChild(ineq[verticals[i][2]].cloneNode());
     }
 }
 
@@ -279,6 +283,12 @@ function toggleGuess(element) {
     }
     if(count == n-1) {
         selected_element.childNodes[unique].classList.add("unique");
+        if(!checkLatinRow(row, col, unique)
+               || !checkLatinCol(row, col, unique)
+               || !checkIneq(row, col, unique)) {
+            selected_element.childNodes[unique].classList.add("alert");
+            board_side[unique].classList.add("alert");
+        }
     }
     // update highlight
     selected_element.classList.remove("highlight");
@@ -386,11 +396,170 @@ function checkIneq(row, col, unique) {
     return true
 }
 
-function loadGame(numbers, horizontal, vertical) {
+/* UI for level screen */
+
+// Menu drawing : Edit, Guess, Highlight, Undo, Choose
+function createMenuLevels() {
+    var harder = document.createElement("div");
+    harder.classList.add("button_harder");
+    harder.textContent = ">";
+    harder.setAttribute('onmousedown', 'increaseDifficulty()');
+    harder.setAttribute('ontouchstart', 'increaseDifficulty(); event.preventDefault()');
+    document.body.appendChild(harder);
+
+    var easier = document.createElement("div");
+    easier.classList.add("button_easier");
+    easier.textContent = "<";
+    easier.setAttribute('onmousedown', 'decreaseDifficulty()');
+    easier.setAttribute('ontouchstart', 'decreaseDifficulty(); event.preventDefault()');
+    document.body.appendChild(easier);
+}
+
+// Side bar drawing
+function createSideLevels() {
+    var side = document.createElement("div");
+    side.classList.add("side");
+    side.classList.add("mode_highlight");
+    board_side_main = side;
+    document.body.appendChild(side);
+    label = document.createElement("div");
+    label.classList.add("label");
+    label.innerHTML = difficultyLabels[difficulty];
+    side.appendChild(label);
+    for(i = 3; i < 9; i++) {
+        square = document.createElement("div")
+        square.classList.add("square");
+        square.setAttribute('num', i)
+        square.setAttribute('onmousedown', 'setSize(this)');
+        square.setAttribute('ontouchstart', 'setSize(this); event.preventDefault()');
+        num_content = document.createTextNode(i+1);
+        square.appendChild(num_content);
+        side.appendChild(square);
+        board_side[i] = square;
+    }
+}
+
+// Grid drawing and styling
+function createGridLevels() {
+    var grid = document.createElement("div");
+    grid.classList.add("grid");
+    document.body.appendChild(grid);
+    for(i = 0; i < 9; i++) {
+        for(j = 0; j < 9; j++) {
+            cell = document.createElement("div")
+            cell.classList.add("cell");
+            grid.appendChild(cell);
+
+            square = document.createElement("div")
+            square.classList.add("square");
+            square.classList.add("center");
+            square.setAttribute('row', i);
+            square.setAttribute('col', j);
+            square.setAttribute('onmousedown', 'loadLevel(this);');
+            square.setAttribute('ontouchstart', 'loadLevel(this); event.preventDefault()');
+            square.textContent = (9*i + j + 1).toString();
+            cell.appendChild(square);
+            board_square[i][j] = square;
+        }
+    }
+}
+
+
+function increaseDifficulty() {
+    if(difficulty == 0) {
+        difficulty += 1;
+    } else if (difficulty == 1) {
+        difficulty += 1;
+    } else if (difficulty == 2) {
+    }
+    label.innerHTML = difficultyLabels[difficulty];
+}
+
+function decreaseDifficulty() {
+    if(difficulty == 0) {
+    } else if (difficulty == 1) {
+        difficulty -= 1;
+    } else if (difficulty == 2) {
+        difficulty -= 1;
+    }
+    label.innerHTML = difficultyLabels[difficulty];
+}
+
+function setSize(element) {
+    board_side[size-1].classList.remove("focus_light");
+    size = parseInt(element.getAttribute("num")) + 1;
+    element.classList.add("focus_light");
+}
+
+
+function buildUrl(num) {
+    var url = "/futoshiki/puzzles/";
+    var url_difficulty = ["Easy", "Tricky", "Extreme"];
+    var url_size = ["04x04", "05x05", "06x06", "07x07", "08x08", "09x09"];
+    var url_id = "00" + ("0"+num).slice(-2);
+    var file_url = url + "/" + url_difficulty[difficulty] + "/" + url_size[size - 4] + "/Puzzle" + url_id + ".txt";
+    return file_url;
+}
+
+
+function loadLevel(element) {
+    var num = element.textContent;
+    var file_url = buildUrl(num);
+    var rawFile = new XMLHttpRequest();
+    rawFile.onload = loadLevelReady;
+    rawFile.open("GET",file_url,true);
+    rawFile.send(null);
+}
+
+function loadLevelReady() {
+    var puzzle = this.responseText;
+    var numbers = [];
+    var horizontals = [];
+    var verticals = [];
+    var line_size = 2*size-1;
+    for(i = 0; i < size; i++) {
+        for(j = 0; j < size; j++) {
+            var c = puzzle.charAt(2*line_size*i + 2*j);
+            if (c != '.') {
+                numbers.push([i+1, j+1, parseInt(c)]);
+            }
+            if (j < size - 1) {
+                var c = puzzle.charAt(2*line_size*i + 2*j+1);
+                if (c == '(') {
+                    horizontals.push([i+1, j+1, '<']);
+                } else if (c == ')') {
+                    horizontals.push([i+1, j+1, '>']);
+                }
+            }
+            if (i < size - 1) {
+                var c = puzzle.charAt((2*i+1)*line_size + 2*j);
+                if (c == '^') {
+                    verticals.push([i+1, j+1, '<']);
+                } else if (c == 'v') {
+                    verticals.push([i+1, j+1, '>']);
+                }
+            }
+        }
+    }
+    loadGame(numbers, horizontals, verticals);
+}
+
+function loadGame(numbers, horizontals, verticals) {
+    n = size;
+    document.documentElement.style.setProperty('--n', size);
+    document.body.textContent = '';
     document.body.classList.add("theme_pad");
     createMenu();
     createSide();
     createGrid();
     modeGuess();
-    loadBoard(numbers, horizontal, vertical);
+    loadBoard(numbers, horizontals, verticals);
+}
+
+function loadChooseLevels() {
+    document.body.classList.add("theme_pad");
+    createMenuLevels();
+    createSideLevels();
+    createGridLevels();
+    setSize(board_side[size-1]);
 }
