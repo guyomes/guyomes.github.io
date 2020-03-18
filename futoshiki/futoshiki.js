@@ -25,8 +25,8 @@ var rotation = 0;
 var board_side_main = null;
 var undo_list = [];
 var ineq = new Object();
-ineq["<"] = document.createTextNode("<");
-ineq[">"] = document.createTextNode(">");
+ineq["<"] = "&#9650;";
+ineq[">"] = "&#9660;";
 
 var selected_element = null;
 
@@ -222,10 +222,10 @@ function loadBoard(numbers, horizontals, verticals) {
         setBoardNumber(numbers[i][0], numbers[i][1], numbers[i][2]);
     }
     for(i = 0; i < horizontals.length; i++) {
-        board_horizontal[horizontals[i][0]-1][horizontals[i][1]-1].appendChild(ineq[horizontals[i][2]].cloneNode());
+        board_horizontal[horizontals[i][0]-1][horizontals[i][1]-1].innerHTML = ineq[horizontals[i][2]];
     }
     for(i = 0; i < verticals.length; i++) {
-        board_vertical[verticals[i][0]-1][verticals[i][1]-1].appendChild(ineq[verticals[i][2]].cloneNode());
+        board_vertical[verticals[i][0]-1][verticals[i][1]-1].innerHTML = ineq[verticals[i][2]];
     }
 }
 

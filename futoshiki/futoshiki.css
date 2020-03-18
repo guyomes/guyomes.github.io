@@ -246,29 +246,36 @@ body .focus_light {
 .grid .cell {
     display: grid;
     grid-template-columns: var(--square) var(--gap);
+    grid-template-rows: var(--square) var(--gap);
 }
 
 /*inequalities between squares*/
+* {-webkit-font-smoothing: antialiased;}
+
 .cell .right {
     display: flex;
+    margin-left: calc(-0.02*var(--square));
     font-size: var(--square);
     font-weight: bold;
     width: var(--gap);
     height: var(--square);
     justify-content: center;
     align-items: center;
-    transform: scale(0.2, 0.8);
+    vertical-align: middle;
+    transform: rotate(-90deg) scale(1, 0.2);
 }
 
 .cell .below {
     display: flex;
+    margin-top: calc(-0.025*var(--gap));
     width: var(--square);
     height: var(--gap);
     font-size: var(--square);
     font-weight: bold;
     justify-content: center;
     align-items: center;
-    transform: rotate(90deg) scale(0.2, 0.8);
+    text-align: center;
+    transform: scale(1, 0.2);
 }
 
 /*squares*/
