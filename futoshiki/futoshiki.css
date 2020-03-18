@@ -215,10 +215,6 @@ body .focus_light {
     background-color: lightgray;
 }
 
-.theme_pad .mode_highlight {
-    color: black;
-}
-
 .side .strikeout {
     font-size: 0;
     /*background: linear-gradient(to top left,
@@ -346,4 +342,9 @@ body .focus_light {
 .remove {
     display: none;
 }
+
+.theme_pad .mode_highlight {
+    color: black;
+}
+
 

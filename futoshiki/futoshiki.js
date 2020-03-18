@@ -58,7 +58,7 @@ function createMenu() {
 function createSide() {
     var side = document.createElement("div");
     side.classList.add("side");
-    board_side = side;
+    board_side_main = side;
     document.body.appendChild(side);
     for(i = 0; i < n; i++) {
         square = document.createElement("div")
