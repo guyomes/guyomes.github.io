@@ -12,6 +12,8 @@ the Free Software Foundation, either version 2 of the License, or
 var difficultyLabels = ["&#9733;", "&#9733; &#9733;", "&#9733; &#9733; &#9733;"];
 var difficulty = 1;
 var size = 7;
+var id_level = 0;
+var total_remaining = 7*7;
 //var n = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--n'));
 var n = 9;
 var board_square = Array.from(Array(n), () => new Array(n));
@@ -212,6 +214,7 @@ function setBoardNumber(i, j, k) {
         num_list[i].classList.add("hide");
     }
     num_list[k-1].classList.add("unique");
+    total_remaining -= 1;
     num_list[k-1].classList.add("board");
     num_list[k-1].classList.remove("hide");
 }
@@ -283,11 +286,13 @@ function toggleGuess(element) {
     }
     if(count == n-1) {
         selected_element.childNodes[unique].classList.add("unique");
+        total_remaining -= 1;
         if(!checkLatinRow(row, col, unique)
                || !checkLatinCol(row, col, unique)
                || !checkIneq(row, col, unique)) {
             selected_element.childNodes[unique].classList.add("alert");
             board_side[unique].classList.add("alert");
+            total_remaining += 1;
         }
     }
     // update highlight
@@ -303,6 +308,9 @@ function toggleGuess(element) {
     rotation += delta;
     board_undo.style.transform = "rotate("+ rotation + "deg)";
     undo_list.push([row, col, num, was_alert]);
+    if(total_remaining == 0) {
+        loadLevelWin();
+    }
 }
 
 function checkLatinRow(row, col, unique) {
@@ -455,8 +463,8 @@ function createGridLevels() {
             square.classList.add("center");
             square.setAttribute('row', i);
             square.setAttribute('col', j);
-            square.setAttribute('onmousedown', 'loadLevel(this);');
-            square.setAttribute('ontouchstart', 'loadLevel(this); event.preventDefault()');
+            square.setAttribute('onmousedown', 'id_level = parseInt(this.textContent); loadLevel();');
+            square.setAttribute('ontouchstart', 'id_level = parseInt(this.textContent); loadLevel(); event.preventDefault()');
             square.textContent = (9*i + j + 1).toString();
             cell.appendChild(square);
             board_square[i][j] = square;
@@ -502,9 +510,8 @@ function buildUrl(num) {
 }
 
 
-function loadLevel(element) {
-    var num = element.textContent;
-    var file_url = buildUrl(num);
+function loadLevel() {
+    var file_url = buildUrl(id_level);
     var rawFile = new XMLHttpRequest();
     rawFile.onload = loadLevelReady;
     rawFile.open("GET",file_url,true);
@@ -544,8 +551,51 @@ function loadLevelReady() {
     loadGame(numbers, horizontals, verticals);
 }
 
+/* UI for win messages and buttons */
+
+function changeGridWin() {
+    for(i = 0; i < 9; i++) {
+        for(j = 0; j < 9; j++) {
+            board_square[i][j].setAttribute('onmounsdown', 'event.preventDefault()');
+            board_square[i][j].setAttribute('ontouchstart', 'event.preventDefault()');
+        }
+    }
+}
+
+function changeMenuWin() {
+    board_highlight.setAttribute('src', '/futoshiki/right-arrow.svg');
+    board_highlight.setAttribute('onmousedown', 'nextLevel()');
+    board_highlight.setAttribute('ontouchstart', 'nextLevel(); event.preventDefault()');
+
+    board_undo.style.transform = "rotate(0deg)";
+    board_undo.setAttribute('src', '/futoshiki/menu.svg');
+    board_undo.setAttribute('onmousedown', 'loadChooseLevels()');
+    board_undo.setAttribute('ontouchstart', 'loadChooseLevels(); event.preventDefault()');
+}
+
+function changeSideWin() {
+    board_side_main.textContent = '';
+    var win = document.createElement("img");
+    win.classList.add("win");
+    win.setAttribute('src', '/futoshiki/check.svg');
+    board_side_main.appendChild(win);
+    board_side_main.append("noborder");
+}
+
+function nextLevel() {
+    if(id_level == 81) {
+        loadChooseLevels();
+    } else {
+        id_level += 1;
+        loadLevel();
+    }
+}
+
+/* Main load functions */
+
 function loadGame(numbers, horizontals, verticals) {
     n = size;
+    total_remaining = n*n;
     document.documentElement.style.setProperty('--n', size);
     document.body.textContent = '';
     document.body.classList.add("theme_pad");
@@ -557,9 +607,18 @@ function loadGame(numbers, horizontals, verticals) {
 }
 
 function loadChooseLevels() {
+    n = 9;
+    document.documentElement.style.setProperty('--n', 9);
+    document.body.textContent = '';
     document.body.classList.add("theme_pad");
     createMenuLevels();
     createSideLevels();
     createGridLevels();
     setSize(board_side[size-1]);
+}
+
+function loadLevelWin() {
+    changeMenuWin();
+    changeSideWin();
+    changeGridWin();
 }

@@ -186,6 +186,10 @@ body .focus {
     color: gray;
 }
 
+.theme_pad .noborder {
+    border-color: white;
+}
+
 .side .label {
     display: flex;
     width: calc(3*var(--side));
@@ -194,6 +198,11 @@ body .focus {
     justify-content: center;
     align-items: center;
     text-align: center;
+}
+
+.side .win {
+    width: calc(3*var(--side));
+    height: calc(3*var(--side));
 }
 
 .side .square {
