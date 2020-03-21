@@ -277,7 +277,10 @@ function toggleGuess(element) {
         element.classList.remove("alert");
     }
     for(i = 0; i < n; i++) {
-        selected_element.childNodes[i].classList.remove("unique");
+        if(selected_element.childNodes[i].classList.contains("unique")) {
+            selected_element.childNodes[i].classList.remove("unique");
+            total_remaining += 1;
+        }
         if(selected_element.childNodes[i].classList.contains("hide")) {
             count += 1;
         } else {
@@ -579,7 +582,7 @@ function changeSideWin() {
     win.classList.add("win");
     win.setAttribute('src', '/futoshiki/check.svg');
     board_side_main.appendChild(win);
-    board_side_main.append("noborder");
+    board_side_main.classList.add("noborder");
 }
 
 function nextLevel() {
