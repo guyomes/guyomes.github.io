@@ -166,7 +166,7 @@
       "bnds": { "type": 2, "lb": 0, "ub": 0 }
     },
     {
-      "name": "Dark Ochre",
+      "name": "Dark_Ochre",
       "vars": [
         { "name": "Tritanium", "coef": 960 },
         { "name": "Pyerite", "coef": 0 },
