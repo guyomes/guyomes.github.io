@@ -1,0 +1,255 @@
+{
+  "name": "mineopt",
+  "generals": [
+    "Tritanium",
+    "Pyerite",
+    "Mexallon",
+    "Isogen",
+    "Nocxium",
+    "Zydrine",
+    "Megcyte",
+    "Morphite"
+  ],
+  "objective": {
+    "direction": 1,
+    "name": "trips",
+    "vars": [
+      { "name": "Tritanium", "coef": 1 },
+      { "name": "  Pyerite", "coef": 1 },
+      { "name": " Mexallon", "coef": 1 },
+      { "name": "   Isogen", "coef": 1 },
+      { "name": "  Nocxium", "coef": 1 },
+      { "name": "  Zydrine", "coef": 1 },
+      { "name": " Megacyte", "coef": 1 },
+      { "name": " Morphite", "coef": 1 }
+    ]
+  },
+  "subjectTo": [
+    {
+      "name": "Veldspar",
+      "vars": [
+        { "name": "Tritanium", "coef": 415 },
+        { "name": "Pyerite", "coef": 0 },
+        { "name": "Mexallon", "coef": 0 },
+        { "name": "Isogen", "coef": 0 },
+        { "name": "Nocxium", "coef": 0 },
+        { "name": "Zydrine", "coef": 0 },
+        { "name": "Megcyte", "coef": 0 },
+        { "name": "Morphite", "coef": 0 }
+      ],
+      "bnds": { "type": 2, "lb": 0, "ub": 0 }
+    },
+    {
+      "name": "Scordite",
+      "vars": [
+        { "name": "Tritanium", "coef": 162 },
+        { "name": "Pyerite", "coef": 115 },
+        { "name": "Mexallon", "coef": 0 },
+        { "name": "Isogen", "coef": 0 },
+        { "name": "Nocxium", "coef": 0 },
+        { "name": "Zydrine", "coef": 0 },
+        { "name": "Megcyte", "coef": 0 },
+        { "name": "Morphite", "coef": 0 }
+      ],
+      "bnds": { "type": 2, "lb": 0, "ub": 0 }
+    },
+    {
+      "name": "Pyroxeres",
+      "vars": [
+        { "name": "Tritanium", "coef": 1754 },
+        { "name": "Pyerite", "coef": 569 },
+        { "name": "Mexallon", "coef": 250 },
+        { "name": "Isogen", "coef": 0 },
+        { "name": "Nocxium", "coef": 30 },
+        { "name": "Zydrine", "coef": 0 },
+        { "name": "Megcyte", "coef": 0 },
+        { "name": "Morphite", "coef": 0 }
+      ],
+      "bnds": { "type": 2, "lb": 0, "ub": 0 }
+    },
+    {
+      "name": "Plagioclase",
+      "vars": [
+        { "name": "Tritanium", "coef": 51 },
+        { "name": "Pyerite", "coef": 65 },
+        { "name": "Mexallon", "coef": 97 },
+        { "name": "Isogen", "coef": 0 },
+        { "name": "Nocxium", "coef": 0 },
+        { "name": "Zydrine", "coef": 0 },
+        { "name": "Megcyte", "coef": 0 },
+        { "name": "Morphite", "coef": 0 }
+      ],
+      "bnds": { "type": 2, "lb": 0, "ub": 0 }
+    },
+    {
+      "name": "Omber",
+      "vars": [
+        { "name": "Tritanium", "coef": 600 },
+        { "name": "Pyerite", "coef": 76 },
+        { "name": "Mexallon", "coef": 0 },
+        { "name": "Isogen", "coef": 55 },
+        { "name": "Nocxium", "coef": 0 },
+        { "name": "Zydrine", "coef": 0 },
+        { "name": "Megcyte", "coef": 0 },
+        { "name": "Morphite", "coef": 0 }
+      ],
+      "bnds": { "type": 2, "lb": 0, "ub": 0 }
+    },
+    {
+      "name": "Kernit",
+      "vars": [
+        { "name": "Tritanium", "coef": 266 },
+        { "name": "Pyerite", "coef": 0 },
+        { "name": "Mexallon", "coef": 480 },
+        { "name": "Isogen", "coef": 48 },
+        { "name": "Nocxium", "coef": 0 },
+        { "name": "Zydrine", "coef": 0 },
+        { "name": "Megcyte", "coef": 0 },
+        { "name": "Morphite", "coef": 0 }
+      ],
+      "bnds": { "type": 2, "lb": 0, "ub": 0 }
+    },
+    {
+      "name": "Jaspet",
+      "vars": [
+        { "name": "Tritanium", "coef": 0 },
+        { "name": "Pyerite", "coef": 0 },
+        { "name": "Mexallon", "coef": 2460 },
+        { "name": "Isogen", "coef": 0 },
+        { "name": "Nocxium", "coef": 48 },
+        { "name": "Zydrine", "coef": 56 },
+        { "name": "Megcyte", "coef": 0 },
+        { "name": "Morphite", "coef": 0 }
+      ],
+      "bnds": { "type": 2, "lb": 0, "ub": 0 }
+    },
+    {
+      "name": "Hemorphite",
+      "vars": [
+        { "name": "Tritanium", "coef": 5500 },
+        { "name": "Pyerite", "coef": 0 },
+        { "name": "Mexallon", "coef": 0 },
+        { "name": "Isogen", "coef": 160 },
+        { "name": "Nocxium", "coef": 13 },
+        { "name": "Zydrine", "coef": 50 },
+        { "name": "Megcyte", "coef": 0 },
+        { "name": "Morphite", "coef": 0 }
+      ],
+      "bnds": { "type": 2, "lb": 0, "ub": 0 }
+    },
+    {
+      "name": "Hedbergite",
+      "vars": [
+        { "name": "Tritanium", "coef": 0 },
+        { "name": "Pyerite", "coef": 2730 },
+        { "name": "Mexallon", "coef": 0 },
+        { "name": "Isogen", "coef": 459 },
+        { "name": "Nocxium", "coef": 9 },
+        { "name": "Zydrine", "coef": 14 },
+        { "name": "Megcyte", "coef": 0 },
+        { "name": "Morphite", "coef": 0 }
+      ],
+      "bnds": { "type": 2, "lb": 0, "ub": 0 }
+    },
+    {
+      "name": "Spodumain",
+      "vars": [
+        { "name": "Tritanium", "coef": 19700 },
+        { "name": "Pyerite", "coef": 3740 },
+        { "name": "Mexallon", "coef": 360 },
+        { "name": "Isogen", "coef": 60 },
+        { "name": "Nocxium", "coef": 0 },
+        { "name": "Zydrine", "coef": 0 },
+        { "name": "Megcyte", "coef": 0 },
+        { "name": "Morphite", "coef": 0 }
+      ],
+      "bnds": { "type": 2, "lb": 0, "ub": 0 }
+    },
+    {
+      "name": "Dark Ochre",
+      "vars": [
+        { "name": "Tritanium", "coef": 960 },
+        { "name": "Pyerite", "coef": 0 },
+        { "name": "Mexallon", "coef": 0 },
+        { "name": "Isogen", "coef": 56 },
+        { "name": "Nocxium", "coef": 43 },
+        { "name": "Zydrine", "coef": 0 },
+        { "name": "Megcyte", "coef": 0 },
+        { "name": "Morphite", "coef": 0 }
+      ],
+      "bnds": { "type": 2, "lb": 0, "ub": 0 }
+    },
+    {
+      "name": "Gneiss",
+      "vars": [
+        { "name": "Tritanium", "coef": 0 },
+        { "name": "Pyerite", "coef": 880 },
+        { "name": "Mexallon", "coef": 919 },
+        { "name": "Isogen", "coef": 184 },
+        { "name": "Nocxium", "coef": 0 },
+        { "name": "Zydrine", "coef": 0 },
+        { "name": "Megcyte", "coef": 0 },
+        { "name": "Morphite", "coef": 0 }
+      ],
+      "bnds": { "type": 2, "lb": 0, "ub": 0 }
+    },
+    {
+      "name": "Crockite",
+      "vars": [
+        { "name": "Tritanium", "coef": 38800 },
+        { "name": "Pyerite", "coef": 0 },
+        { "name": "Mexallon", "coef": 0 },
+        { "name": "Isogen", "coef": 0 },
+        { "name": "Nocxium", "coef": 94 },
+        { "name": "Zydrine", "coef": 96 },
+        { "name": "Megcyte", "coef": 0 },
+        { "name": "Morphite", "coef": 0 }
+      ],
+      "bnds": { "type": 2, "lb": 0, "ub": 0 }
+    },
+    {
+      "name": "Bistot",
+      "vars": [
+        { "name": "Tritanium", "coef": 0 },
+        { "name": "Pyerite", "coef": 6120 },
+        { "name": "Mexallon", "coef": 0 },
+        { "name": "Isogen", "coef": 0 },
+        { "name": "Nocxium", "coef": 0 },
+        { "name": "Zydrine", "coef": 36 },
+        { "name": "Megcyte", "coef": 79 },
+        { "name": "Morphite", "coef": 0 }
+      ],
+      "bnds": { "type": 2, "lb": 0, "ub": 0 }
+    },
+    {
+      "name": "Arkonor",
+      "vars": [
+        { "name": "Tritanium", "coef": 8800 },
+        { "name": "Pyerite", "coef": 0 },
+        { "name": "Mexallon", "coef": 1000 },
+        { "name": "Isogen", "coef": 0 },
+        { "name": "Nocxium", "coef": 0 },
+        { "name": "Zydrine", "coef": 0 },
+        { "name": "Megcyte", "coef": 104 },
+        { "name": "Morphite", "coef": 0 }
+      ],
+      "bnds": { "type": 2, "lb": 0, "ub": 0 }
+    },
+    {
+      "name": "Mercoxit",
+      "vars": [
+        { "name": "Tritanium", "coef": 0 },
+        { "name": "Pyerite", "coef": 0 },
+        { "name": "Mexallon", "coef": 0 },
+        { "name": "Isogen", "coef": 0 },
+        { "name": "Nocxium", "coef": 0 },
+        { "name": "Zydrine", "coef": 0 },
+        { "name": "Megcyte", "coef": 0 },
+        { "name": "Morphite", "coef": 60 }
+      ],
+      "bnds": { "type": 2, "lb": 0, "ub": 0 }
+    }
+  ]
+}
+
+
