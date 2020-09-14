@@ -7,110 +7,7 @@
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-        <script type="text/javascript">
-            const glpk = new Worker('/mineopt/glpk-worker.js');
-            glpk.onerror = (err) => {
-                console.log(err);
-            };
-            glpk.onmessage = (evt) => {
-                if(evt.data.result) {
-                    console.log(evt.data);
-                }
-            };
-            var targets_list = null;
-            var base_yield = null;
-            var problem = null;
-            
-            var raw = [
-              "Veldspar",
-              "Scordite",
-              "Pyroxeres",
-              "Plagioclase",
-              "Omber",
-              "Kernit",
-              "Jaspet",
-              "Hemorphite",
-              "Hedbergite",
-              "Spodumain",
-              "Dark_Ochre",
-              "Gneiss",
-              "Crockite",
-              "Bistot",
-              "Arkonor",
-              "Mercoxit"
-            ]
-            
-            var processed = [
-              "Tritanium",
-              "Pyerite",
-              "Mexallon",
-              "Isogen",
-              "Nocxium",
-              "Zydrine",
-              "Megcyte",
-              "Morphite"
-            ];
-
-            async function fill_targets() {
-                targets_list = await fetch("/mineopt/targets.json").then(response => response.json());
-                var targets_select = document.getElementById('Targets_list');
-                for(i = 0; i < targets.length; i++) {
-                    var option = document.createElement('option');
-                    option.text = targets[i].name;
-                    option.value = i;
-                    targets_select.add(option);
-                }
-            }
-
-            async function init_problem() {
-                base_yield = await fetch("/mineopt/base_yield.json").then(response => response.json());
-                problem = {
-                  "name": "mineopt",
-                  "generals": raw,
-                  "objective": {
-                    "direction": 1,
-                    "name": "roundtrips",
-                    "vars": [],
-                  },
-                  "subjectTo": [],
-                  "options": {
-                    "msglev": 0
-                  }
-                };
-                for(let i=0; i < raw.length; i++) {
-                    problem.objective.vars.push({"name": raw[i], "coef": 1});
-                }
-                for(let j=0; j < processed.length; j++) {
-                    var constraint = [];
-                    for(let i=0; i < raw.length; i++) {
-                        problem.objective.vars.push({"name": raw[i], "coef": base_yield[raw[i]][processed[j]]});
-                    }
-                    problem.subjectTo.push({
-                        "name": processed,
-                        "vars": constraint,
-                        "bnds": {"type": 2, "lb": 0, "ub": 0}
-                    });
-                }
-            }
-
-            function update_target(element) {
-                for(let i = 0; i < processed.length; i++) {
-                }
-            }
-
-            function update(element) {
-                solve();
-            }
-
-            function solve() {
-                glpk.postMessage(problem);
-            }
-
-            function init() {
-                fill_targets();
-                init_problem();
-            }
-        </script>
+        <script src="script/mineopt.js"></script>
         <style>
             /* Insert slash in gutter between cells */
             .slash:before {
@@ -124,7 +21,7 @@
 
         <form>
           <div class="form-row">
-            <div class="col col-md-2">
+            <div class="col col-md-1">
             </div>
             <div class="col col-md-1 text-center">
                 <label>Basic</label>
@@ -135,9 +32,11 @@
             <div class="col col-md-1 text-center">
                 <label>Expert</label>
             </div>
+            <div class="col col-md-1 text-center">
+            </div>
           </div>
           <div class="form-row">
-            <div class="col col-md-2 text-right">
+            <div class="col col-md-1 text-right">
                 <label>Common</label>
             </div>
             <div class="col col-md-1">
@@ -146,12 +45,14 @@
             <div class="col col-md-1">
               <input type="number" class="form-control form-control-sm">
             </div>
-            <div class="col col-md-1">
+            <div class="col col-md-1 border-right">
               <input type="number" class="form-control form-control-sm">
+            </div>
+            <div class="col col-md-1">
             </div>
           </div>
           <div class="form-row">
-            <div class="col col-md-2 text-right">
+            <div class="col col-md-1 text-right">
                 <label>Uncommon</label>
             </div>
             <div class="col col-md-1">
@@ -160,12 +61,15 @@
             <div class="col col-md-1">
               <input type="number" class="form-control form-control-sm">
             </div>
-            <div class="col col-md-1">
+            <div class="col col-md-1 border-right">
               <input type="number" class="form-control form-control-sm">
+            </div>
+            <div class="col col-md-1 text-center">
+                <label>Cargo</label>
             </div>
           </div>
           <div class="form-row">
-            <div class="col col-md-2 text-right">
+            <div class="col col-md-1 text-right">
                 <label>Special</label>
             </div>
             <div class="col col-md-1">
@@ -174,12 +78,15 @@
             <div class="col col-md-1">
               <input type="number" class="form-control form-control-sm">
             </div>
-            <div class="col col-md-1">
+            <div class="col col-md-1 border-right">
               <input type="number" class="form-control form-control-sm">
+            </div>
+            <div class="col col-md-1">
+              <input type="number" class="form-control form-control-sm" placeholder="Volume">
             </div>
           </div>
           <div class="form-row">
-            <div class="col col-md-2 text-right">
+            <div class="col col-md-1 text-right">
                 <label>Rare</label>
             </div>
             <div class="col col-md-1">
@@ -188,12 +95,14 @@
             <div class="col col-md-1">
               <input type="number" class="form-control form-control-sm">
             </div>
-            <div class="col col-md-1">
+            <div class="col col-md-1 border-right">
               <input type="number" class="form-control form-control-sm">
+            </div>
+            <div class="col col-md-1">
             </div>
           </div>
           <div class="form-row">
-            <div class="col col-md-2 text-right">
+            <div class="col col-md-1 text-right">
                 <label>Precious</label>
             </div>
             <div class="col col-md-1">
@@ -202,8 +111,10 @@
             <div class="col col-md-1">
               <input type="number" class="form-control form-control-sm">
             </div>
-            <div class="col col-md-1">
+            <div class="col col-md-1 border-right">
               <input type="number" class="form-control form-control-sm">
+            </div>
+            <div class="col col-md-1">
             </div>
           </div>
         </form>
@@ -226,10 +137,10 @@
                     <label>Tritanium</label>
                 </div>
                 <div class="col-4 col-md-2">
-                    <input class="form-control form-control-sm" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm text-right" type="number" oninput="update(this);">
                 </div>
                 <div class="col-4 col-md-2 slash">
-                    <input class="form-control form-control-sm" id="Tritanium" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm text-right text-right" id="Tritanium" type="number" oninput="update(this);">
                 </div>
             </div>
             <div class="form-row">
@@ -237,10 +148,10 @@
                     <label>Pyerite</label>
                 </div>
                 <div class="col-4 col-md-2">
-                    <input class="form-control form-control-sm" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm text-right" type="number" oninput="update(this);">
                 </div>
                 <div class="col-4 col-md-2 slash">
-                    <input class="form-control form-control-sm" id="Pyerite" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm text-right" id="Pyerite" type="number" oninput="update(this);">
                 </div>
             </div>
             <div class="form-row">
@@ -248,10 +159,10 @@
                     <label>Mexallon</label>
                 </div>
                 <div class="col-4 col-md-2">
-                    <input class="form-control form-control-sm" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm text-right" type="number" oninput="update(this);">
                 </div>
                 <div class="col-4 col-md-2 slash">
-                    <input class="form-control form-control-sm" id="Mexallon" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm text-right" id="Mexallon" type="number" oninput="update(this);">
                 </div>
             </div>
             <div class="form-row">
@@ -259,10 +170,10 @@
                     <label>Isogen</label>
                 </div>
                 <div class="col-4 col-md-2">
-                    <input class="form-control form-control-sm" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm text-right" type="number" oninput="update(this);">
                 </div>
                 <div class="col-4 col-md-2 slash">
-                    <input class="form-control form-control-sm" id="Isogen" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm text-right" id="Isogen" type="number" oninput="update(this);">
                 </div>
             </div>
             <div class="form-row">
@@ -270,10 +181,10 @@
                     <label>Nocxium</label>
                 </div>
                 <div class="col-4 col-md-2">
-                    <input class="form-control form-control-sm" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm text-right" type="number" oninput="update(this);">
                 </div>
                 <div class="col-4 col-md-2 slash">
-                    <input class="form-control form-control-sm" id="Nocxium" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm text-right" id="Nocxium" type="number" oninput="update(this);">
                 </div>
             </div>
             <div class="form-row">
@@ -281,10 +192,10 @@
                     <label>Zydrine</label>
                 </div>
                 <div class="col-4 col-md-2">
-                    <input class="form-control form-control-sm" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm text-right" type="number" oninput="update(this);">
                 </div>
                 <div class="col-4 col-md-2 slash">
-                    <input class="form-control form-control-sm" id="Zydrine" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm text-right" id="Zydrine" type="number" oninput="update(this);">
                 </div>
             </div>
             <div class="form-row">
@@ -292,10 +203,10 @@
                     <label>Megacyte</label>
                 </div>
                 <div class="col-4 col-md-2">
-                    <input class="form-control form-control-sm" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm text-right" type="number" oninput="update(this);">
                 </div>
                 <div class="col-4 col-md-2 slash">
-                    <input class="form-control form-control-sm" id="Megacyte" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm text-right" id="Megacyte" type="number" oninput="update(this);">
                 </div>
             </div>
             <div class="form-row">
@@ -303,10 +214,10 @@
                     <label>Morphite</label>
                 </div>
                 <div class="col-4 col-md-2">
-                    <input class="form-control form-control-sm" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm text-right" type="number" oninput="update(this);">
                 </div>
                 <div class="col-4 col-md-2 slash">
-                    <input class="form-control form-control-sm" id="Morphite" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm text-right" id="Morphite" type="number" oninput="update(this);">
                 </div>
             </div>
         </form>
@@ -324,7 +235,7 @@
                     <label>Veldspar</label>
                 </div>
                 <div class="col-2 col-md-1">
-                    <input class="form-control form-control-sm" id="Tritanium" type="number" readonly>
+                    <input class="form-control form-control-sm" id="Veldspar" type="number" readonly>
                 </div>
             </div>
             <div class="form-row">
@@ -338,7 +249,7 @@
                     <label>Scordite</label>
                 </div>
                 <div class="col-2 col-md-1">
-                    <input class="form-control form-control-sm" id="Pyerite" type="number" readonly>
+                    <input class="form-control form-control-sm" id="Scordite" type="number" readonly>
                 </div>
             </div>
             <div class="form-row">
@@ -352,7 +263,7 @@
                     <label>Pyroxeres</label>
                 </div>
                 <div class="col-2 col-md-1">
-                    <input class="form-control form-control-sm" id="Mexallon" type="number" readonly>
+                    <input class="form-control form-control-sm" id="Pyroxeres" type="number" readonly>
                 </div>
             </div>
             <div class="form-row">
@@ -366,7 +277,7 @@
                     <label>Plagioclase</label>
                 </div>
                 <div class="col-2 col-md-1">
-                    <input class="form-control form-control-sm" id="Isogen" type="number" readonly>
+                    <input class="form-control form-control-sm" id="Plagioclase" type="number" readonly>
                 </div>
             </div>
             <div class="form-row">
@@ -380,7 +291,7 @@
                     <label>Omber</label>
                 </div>
                 <div class="col-2 col-md-1">
-                    <input class="form-control form-control-sm" id="Nocxium" type="number" readonly>
+                    <input class="form-control form-control-sm" id="Omber" type="number" readonly>
                 </div>
             </div>
             <div class="form-row">
@@ -394,7 +305,7 @@
                     <label>Kernit</label>
                 </div>
                 <div class="col-2 col-md-1">
-                    <input class="form-control form-control-sm" id="Zydrine" type="number" readonly>
+                    <input class="form-control form-control-sm" id="Kernit" type="number" readonly>
                 </div>
             </div>
             <div class="form-row">
@@ -408,7 +319,7 @@
                     <label>Jaspet</label>
                 </div>
                 <div class="col-2 col-md-1">
-                    <input class="form-control form-control-sm" id="Megacyte" type="number" readonly>
+                    <input class="form-control form-control-sm" id="Jaspet" type="number" readonly>
                 </div>
             </div>
             <div class="form-row">
@@ -422,7 +333,7 @@
                     <label>Hemorphite</label>
                 </div>
                 <div class="col-2 col-md-1">
-                    <input class="form-control form-control-sm" id="Morphite" type="number" readonly>
+                    <input class="form-control form-control-sm" id="Hemorphite" type="number" readonly>
                 </div>
             </div>
         </form>

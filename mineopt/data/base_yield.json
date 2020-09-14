@@ -6,7 +6,7 @@
     "Isogen": 0,
     "Nocxium": 0,
     "Zydrine": 0,
-    "Megcyte": 0,
+    "Megacyte": 0,
     "Morphite": 0
   },
   "Scordite": {
@@ -16,7 +16,7 @@
     "Isogen": 0,
     "Nocxium": 0,
     "Zydrine": 0,
-    "Megcyte": 0,
+    "Megacyte": 0,
     "Morphite": 0
   },
   "Pyroxeres": {
@@ -26,7 +26,7 @@
     "Isogen": 0,
     "Nocxium": 30,
     "Zydrine": 0,
-    "Megcyte": 0,
+    "Megacyte": 0,
     "Morphite": 0
   },
   "Plagioclase": {
@@ -36,7 +36,7 @@
     "Isogen": 0,
     "Nocxium": 0,
     "Zydrine": 0,
-    "Megcyte": 0,
+    "Megacyte": 0,
     "Morphite": 0
   },
   "Omber": {
@@ -46,7 +46,7 @@
     "Isogen": 55,
     "Nocxium": 0,
     "Zydrine": 0,
-    "Megcyte": 0,
+    "Megacyte": 0,
     "Morphite": 0
   },
   "Kernit": {
@@ -56,7 +56,7 @@
     "Isogen": 48,
     "Nocxium": 0,
     "Zydrine": 0,
-    "Megcyte": 0,
+    "Megacyte": 0,
     "Morphite": 0
   },
   "Jaspet": {
@@ -66,7 +66,7 @@
     "Isogen": 0,
     "Nocxium": 48,
     "Zydrine": 56,
-    "Megcyte": 0,
+    "Megacyte": 0,
     "Morphite": 0
   },
   "Hemorphite": {
@@ -76,7 +76,7 @@
     "Isogen": 160,
     "Nocxium": 13,
     "Zydrine": 50,
-    "Megcyte": 0,
+    "Megacyte": 0,
     "Morphite": 0
   },
   "Hedbergite": {
@@ -86,7 +86,7 @@
     "Isogen": 459,
     "Nocxium": 9,
     "Zydrine": 14,
-    "Megcyte": 0,
+    "Megacyte": 0,
     "Morphite": 0
   },
   "Spodumain": {
@@ -96,7 +96,7 @@
     "Isogen": 60,
     "Nocxium": 0,
     "Zydrine": 0,
-    "Megcyte": 0,
+    "Megacyte": 0,
     "Morphite": 0
   },
   "Dark_Ochre": {
@@ -106,7 +106,7 @@
     "Isogen": 56,
     "Nocxium": 43,
     "Zydrine": 0,
-    "Megcyte": 0,
+    "Megacyte": 0,
     "Morphite": 0
   },
   "Gneiss": {
@@ -116,7 +116,7 @@
     "Isogen": 184,
     "Nocxium": 0,
     "Zydrine": 0,
-    "Megcyte": 0,
+    "Megacyte": 0,
     "Morphite": 0
   },
   "Crockite": {
@@ -126,7 +126,7 @@
     "Isogen": 0,
     "Nocxium": 94,
     "Zydrine": 96,
-    "Megcyte": 0,
+    "Megacyte": 0,
     "Morphite": 0
   },
   "Bistot": {
@@ -136,8 +136,28 @@
     "Isogen": 0,
     "Nocxium": 0,
     "Zydrine": 36,
-    "Megcyte": 79,
+    "Megacyte": 79,
     "Morphite": 0
+  },
+  "Arkonor": {
+    "Tritanium": 8800,
+    "Pyerite": 0,
+    "Mexallon": 1000,
+    "Isogen": 0,
+    "Nocxium": 0,
+    "Zydrine": 0,
+    "Megacyte": 104,
+    "Morphite": 0
+  },
+  "Mercoxit": {
+    "Tritanium": 0,
+    "Pyerite": 0,
+    "Mexallon": 0,
+    "Isogen": 0,
+    "Nocxium": 0,
+    "Zydrine": 0,
+    "Megacyte": 0,
+    "Morphite": 60
   }
 }
 
