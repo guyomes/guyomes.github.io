@@ -10,18 +10,18 @@
         <script type="text/javascript">
             //var glpkjs = require('glpk.js')
             var problem = fetch("/mineopt/base_yield.json").then(response => response.json());
-            var targets_list = document.getElementById('Targets_list');
             
             function fill_targets() {
-                //var targets = fetch("/mineopt/targets.json").then(response => response.json());
+                var targets_list = document.getElementById('Targets_list');
                 fetch("/mineopt/targets.json").then(response => response.json())
-                                              .then(dat => console.log(dat));
-                //for(i = 0; i < targets.length; i++) {
-                //    var option = document.createElement('option');
-                //    option.text = targets[i].name;
-                //    option.value = i;
-                //    targets_list.add(option);
-                //}
+                                              .then(targets => {
+                    for(i = 0; i < targets.length; i++) {
+                        var option = document.createElement('option');
+                        option.text = targets[i].name;
+                        option.value = i;
+                        targets_list.add(option);
+                    }
+                });
             }
 
             function update(element) {
