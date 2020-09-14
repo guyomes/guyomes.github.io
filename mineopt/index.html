@@ -6,14 +6,12 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
         <script type="text/javascript">
-            var glpkjs = require('glpk.js')
-            var response = fetch("/minopt/base_yield.json");
-            var problem = response.json();
+            //var glpkjs = require('glpk.js')
+            var problem = fetch("/mineopt/base_yield.json").then(response => response.json());
             var targets_list = document.getElementById('Targets_list');
             
             function fill_targets() {
-                var response = fetch("/minopt/targets.json");
-                var targets = response.json();
+                var targets = fetch("/mineopt/targets.json").then(response => response.json());
                 for(i = 0; i < targets.length; i++) {
                     var option = document.createElement('option');
                     option.text = targets[i].name;

@@ -1,17 +1,1 @@
-[
-  {
-    "name": "Retriever",
-    "resources": {
-      "Tritanium": 3087835,
-      "Pyerite":    759925,
-      "Mexallon":   260648,
-      "Isogen":      39225,
-      "Nocxium":     12781,
-      "Zydrine":      4005,
-      "Megacyte":        0,
-      "Morphite":        0
-    }
-]
-
-
-
+{ "hello", "coucou" }
