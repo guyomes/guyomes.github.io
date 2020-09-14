@@ -15,13 +15,13 @@
     "name": "trips",
     "vars": [
       { "name": "Tritanium", "coef": 1 },
-      { "name": "  Pyerite", "coef": 1 },
-      { "name": " Mexallon", "coef": 1 },
-      { "name": "   Isogen", "coef": 1 },
-      { "name": "  Nocxium", "coef": 1 },
-      { "name": "  Zydrine", "coef": 1 },
-      { "name": " Megacyte", "coef": 1 },
-      { "name": " Morphite", "coef": 1 }
+      { "name":   "Pyerite", "coef": 1 },
+      { "name":  "Mexallon", "coef": 1 },
+      { "name":    "Isogen", "coef": 1 },
+      { "name":   "Nocxium", "coef": 1 },
+      { "name":   "Zydrine", "coef": 1 },
+      { "name":  "Megacyte", "coef": 1 },
+      { "name":  "Morphite", "coef": 1 }
     ]
   },
   "subjectTo": [

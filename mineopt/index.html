@@ -8,31 +8,44 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
         <script type="text/javascript">
-            //var glpkjs = require('glpk.js')
-            var problem = fetch("/mineopt/base_yield.json").then(response => response.json());
+            const glpk = new Worker('/mineopt/glpk-worker.js');
+            glpk.onerror = (err) => {
+                console.log(err);
+            };
+            glpk.onmessage = (evt) => {
+                if(evt.data.result) {
+                    console.log(evt.data);
+                }
+            };
+            var problem = null;
+
             
-            function fill_targets() {
+            async function fill_targets() {
                 var targets_list = document.getElementById('Targets_list');
-                fetch("/mineopt/targets.json").then(response => response.json())
-                                              .then(targets => {
-                    for(i = 0; i < targets.length; i++) {
-                        var option = document.createElement('option');
-                        option.text = targets[i].name;
-                        option.value = i;
-                        targets_list.add(option);
-                    }
-                });
+                var targets = await fetch("/mineopt/targets.json").then(response => response.json());
+                for(i = 0; i < targets.length; i++) {
+                    var option = document.createElement('option');
+                    option.text = targets[i].name;
+                    option.value = i;
+                    targets_list.add(option);
+                }
+            }
+
+            async function init_problem() {
+                problem = await fetch("/mineopt/base_yield.json").then(response => response.json());
             }
 
             function update(element) {
+                solve();
             }
 
             function solve() {
-                glpkjs.solve(problem, 0);
+                glpk.postMessage(problem);
             }
 
             function init() {
                 fill_targets();
+                init_problem();
             }
         </script>
         <style>
