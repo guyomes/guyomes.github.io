@@ -17,22 +17,85 @@
                     console.log(evt.data);
                 }
             };
+            var targets_list = null;
+            var base_yield = null;
             var problem = null;
-
             
+            var raw = [
+              "Veldspar",
+              "Scordite",
+              "Pyroxeres",
+              "Plagioclase",
+              "Omber",
+              "Kernit",
+              "Jaspet",
+              "Hemorphite",
+              "Hedbergite",
+              "Spodumain",
+              "Dark_Ochre",
+              "Gneiss",
+              "Crockite",
+              "Bistot",
+              "Arkonor",
+              "Mercoxit"
+            ]
+            
+            var processed = [
+              "Tritanium",
+              "Pyerite",
+              "Mexallon",
+              "Isogen",
+              "Nocxium",
+              "Zydrine",
+              "Megcyte",
+              "Morphite"
+            ];
+
             async function fill_targets() {
-                var targets_list = document.getElementById('Targets_list');
-                var targets = await fetch("/mineopt/targets.json").then(response => response.json());
+                targets_list = await fetch("/mineopt/targets.json").then(response => response.json());
+                var targets_select = document.getElementById('Targets_list');
                 for(i = 0; i < targets.length; i++) {
                     var option = document.createElement('option');
                     option.text = targets[i].name;
                     option.value = i;
-                    targets_list.add(option);
+                    targets_select.add(option);
                 }
             }
 
             async function init_problem() {
-                problem = await fetch("/mineopt/base_yield.json").then(response => response.json());
+                base_yield = await fetch("/mineopt/base_yield.json").then(response => response.json());
+                problem = {
+                  "name": "mineopt",
+                  "generals": raw,
+                  "objective": {
+                    "direction": 1,
+                    "name": "roundtrips",
+                    "vars": [],
+                  },
+                  "subjectTo": [],
+                  "options": {
+                    "msglev": 0
+                  }
+                };
+                for(let i=0; i < raw.length; i++) {
+                    problem.objective.vars.push({"name": raw[i], "coef": 1});
+                }
+                for(let j=0; j < processed.length; j++) {
+                    var constraint = [];
+                    for(let i=0; i < raw.length; i++) {
+                        problem.objective.vars.push({"name": raw[i], "coef": base_yield[raw[i]][processed[j]]});
+                    }
+                    problem.subjectTo.push({
+                        "name": processed,
+                        "vars": constraint,
+                        "bnds": {"type": 2, "lb": 0, "ub": 0}
+                    });
+                }
+            }
+
+            function update_target(element) {
+                for(let i = 0; i < processed.length; i++) {
+                }
             }
 
             function update(element) {
@@ -148,7 +211,7 @@
         <form>
             <div class="form-row">
                 <div class="col-8 col-md-3">
-                    <select class="custom-select form-control" id="Targets_list">
+                    <select class="custom-select form-control" id="Targets_list" onchange="update_target(this);">
                         <option selected>Choose target ...</option>
                     </select>
                 </div>
@@ -163,10 +226,10 @@
                     <label>Tritanium</label>
                 </div>
                 <div class="col-4 col-md-2">
-                    <input class="form-control form-control-sm" id="Veldspar" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm" type="number" oninput="update(this);">
                 </div>
                 <div class="col-4 col-md-2 slash">
-                    <input class="form-control form-control-sm" id="Veldspar" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm" id="Tritanium" type="number" oninput="update(this);">
                 </div>
             </div>
             <div class="form-row">
@@ -174,10 +237,10 @@
                     <label>Pyerite</label>
                 </div>
                 <div class="col-4 col-md-2">
-                    <input class="form-control form-control-sm" id="Scordite" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm" type="number" oninput="update(this);">
                 </div>
                 <div class="col-4 col-md-2 slash">
-                    <input class="form-control form-control-sm" id="Scordite" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm" id="Pyerite" type="number" oninput="update(this);">
                 </div>
             </div>
             <div class="form-row">
@@ -185,10 +248,10 @@
                     <label>Mexallon</label>
                 </div>
                 <div class="col-4 col-md-2">
-                    <input class="form-control form-control-sm" id="Pyroxeres" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm" type="number" oninput="update(this);">
                 </div>
                 <div class="col-4 col-md-2 slash">
-                    <input class="form-control form-control-sm" id="Pyroxeres" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm" id="Mexallon" type="number" oninput="update(this);">
                 </div>
             </div>
             <div class="form-row">
@@ -196,10 +259,10 @@
                     <label>Isogen</label>
                 </div>
                 <div class="col-4 col-md-2">
-                    <input class="form-control form-control-sm" id="Plagioclase" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm" type="number" oninput="update(this);">
                 </div>
                 <div class="col-4 col-md-2 slash">
-                    <input class="form-control form-control-sm" id="Plagioclase" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm" id="Isogen" type="number" oninput="update(this);">
                 </div>
             </div>
             <div class="form-row">
@@ -207,10 +270,10 @@
                     <label>Nocxium</label>
                 </div>
                 <div class="col-4 col-md-2">
-                    <input class="form-control form-control-sm" id="Omber" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm" type="number" oninput="update(this);">
                 </div>
                 <div class="col-4 col-md-2 slash">
-                    <input class="form-control form-control-sm" id="Omber" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm" id="Nocxium" type="number" oninput="update(this);">
                 </div>
             </div>
             <div class="form-row">
@@ -218,10 +281,10 @@
                     <label>Zydrine</label>
                 </div>
                 <div class="col-4 col-md-2">
-                    <input class="form-control form-control-sm" id="Kernit" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm" type="number" oninput="update(this);">
                 </div>
                 <div class="col-4 col-md-2 slash">
-                    <input class="form-control form-control-sm" id="Kernit" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm" id="Zydrine" type="number" oninput="update(this);">
                 </div>
             </div>
             <div class="form-row">
@@ -229,10 +292,10 @@
                     <label>Megacyte</label>
                 </div>
                 <div class="col-4 col-md-2">
-                    <input class="form-control form-control-sm" id="Jaspet" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm" type="number" oninput="update(this);">
                 </div>
                 <div class="col-4 col-md-2 slash">
-                    <input class="form-control form-control-sm" id="Jaspet" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm" id="Megacyte" type="number" oninput="update(this);">
                 </div>
             </div>
             <div class="form-row">
@@ -240,10 +303,10 @@
                     <label>Morphite</label>
                 </div>
                 <div class="col-4 col-md-2">
-                    <input class="form-control form-control-sm" id="Hemorphite" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm" type="number" oninput="update(this);">
                 </div>
                 <div class="col-4 col-md-2 slash">
-                    <input class="form-control form-control-sm" id="Hemorphite" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm" id="Morphite" type="number" oninput="update(this);">
                 </div>
             </div>
         </form>
