@@ -76,6 +76,7 @@ var skills = {
     "Special": {"Basic": 0, "Advanced": 0, "Expert": 0},
     "Rare": {"Basic": 0, "Advanced": 0, "Expert": 0},
     "Precious": {"Basic": 0, "Advanced": 0, "Expert": 0}
+    "Production": {"Basic": 0, "Advanced": 0, "Expert": 0}
 }
 
 var rate = {
@@ -97,6 +98,7 @@ var rate = {
   "Mercoxit": 0.3
 }
 
+var target_rate = 1;
 var capacity = 0;
 var quantity = 1;
 
@@ -148,6 +150,15 @@ async function init_problem() {
     }
 }
 
+function update_production(element, level) {
+    skills[type][level] = element.value;
+    target_rate = (150 - skills[type]["Basic"] * 6
+                       - skills[type]["Advanced"] * 4
+                       - skills[type]["Expert"])
+                  / 150;
+    update_target(selected);
+}
+
 function update_skills(element, type, level) {
     skills[type][level] = element.value;
     for( let i = 0; i < distribution[type].length; i++) {
@@ -183,12 +194,14 @@ function update_quantity(element) {
 
 function update_target(element) {
     selected = element;
-    for(let i = 0; i < processed.length; i++) {
-        var num = targets_list[element.value].resources[processed[i]];
-        document.getElementById(processed[i]+"-target").value = num * quantity;
-        update_subjectTo_bnds(i);
+    if(selected) {
+        for(let i = 0; i < processed.length; i++) {
+            var num = targets_list[element.value].resources[processed[i]];
+            document.getElementById(processed[i]+"-target").value = num * quantity * target_rate;
+            update_subjectTo_bnds(i);
+        }
+        solve();
     }
-    solve();
 }
 
 function update_processed(num) {
