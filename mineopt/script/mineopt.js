@@ -14,11 +14,21 @@ glpk.onerror = (err) => {
 };
 glpk.onmessage = (evt) => {
     if(evt.data.result) {
-        console.log(evt.data);
+        for(let i = 0; i < raw.length; i++) {
+            var num = evt.data.result.vars[raw[i]];
+            if(num > 0) { 
+                document.getElementById(raw[i]).value = num;
+            } else {
+                document.getElementById(raw[i]).value = "";
+            }
+        }
+        //console.log(evt.data);
     }
 };
 var targets_list = null;
+var selected = null;
 var base_yield = null;
+var m3per100units = null;
 var problem = null;
 var test = null;
 
@@ -52,6 +62,44 @@ var processed = [
   "Morphite"
 ];
 
+var distribution = {
+    "Common": [ "Veldspar", "Scordite", "Plagioclase" ],
+    "Uncommon": [ "Pyroxeres", "Omber", "Kernit", "Dark_Ochre" ],
+    "Special": [ "Hemorphite", "Spodumain", "Gneiss" ],
+    "Rare": [ "Jaspet", "Hedbergite", "Crockite" ],
+    "Precious": [ "Bistot", "Arkonor", "Mercoxit" ]
+}
+
+var skills = {
+    "Common": {"Basic": 0, "Advanced": 0, "Expert": 0},
+    "Uncommon": {"Basic": 0, "Advanced": 0, "Expert": 0},
+    "Special": {"Basic": 0, "Advanced": 0, "Expert": 0},
+    "Rare": {"Basic": 0, "Advanced": 0, "Expert": 0},
+    "Precious": {"Basic": 0, "Advanced": 0, "Expert": 0}
+}
+
+var rate = {
+  "Veldspar": 0.3,
+  "Scordite": 0.3,
+  "Pyroxeres": 0.3,
+  "Plagioclase": 0.3,
+  "Omber": 0.3,
+  "Kernit": 0.3,
+  "Jaspet": 0.3,
+  "Hemorphite": 0.3,
+  "Hedbergite": 0.3,
+  "Spodumain": 0.3,
+  "Dark_Ochre": 0.3,
+  "Gneiss": 0.3,
+  "Crockite": 0.3,
+  "Bistot": 0.3,
+  "Arkonor": 0.3,
+  "Mercoxit": 0.3
+}
+
+var capacity = 0;
+var quantity = 1;
+
 async function fill_targets() {
     targets_list = await fetch("/mineopt/data/targets.json").then(response => response.json());
     var targets_select = document.getElementById('Targets_list');
@@ -65,7 +113,7 @@ async function fill_targets() {
 
 async function init_problem() {
     base_yield = await fetch("/mineopt/data/base_yield.json").then(response => response.json());
-    test = await fetch("/mineopt/problem_base_yield.json").then(response => response.json());
+    m3per100units = await fetch("/mineopt/data/m3per100units.json").then(response => response.json());
     problem = {
       "name": "mineopt",
       "generals": raw,
@@ -82,7 +130,7 @@ async function init_problem() {
     for(let j=0; j < processed.length; j++) {
         var coefficients = [];
         for(let i=0; i < raw.length; i++) {
-            coefficients.push({"name": raw[i], "coef": base_yield[raw[i]][processed[j]]});
+            coefficients.push({"name": raw[i], "coef": 0});
         }
         problem.subjectTo.push({
                 "name": processed[j],
@@ -100,13 +148,58 @@ async function init_problem() {
     }
 }
 
+function update_skills(element, type, level) {
+    skills[type][level] = element.value;
+    for( let i = 0; i < distribution[type].length; i++) {
+        rate[distribution[type][i]] =
+            0.3
+            + skills[type]["Basic"] * 0.3 * 0.1
+            + skills[type]["Advanced"] * 0.3 * 0.05
+            + skills[type]["Expert"] * 0.3 * 0.05
+            + (skills[type]["Advanced"] > 0 ? 0.3*0.05 : 0);
+    }
+    update_subjectTo_coef();
+    solve();
+}
+
+function update_capacity(element) {
+    capacity = element.value;
+    update_subjectTo_coef();
+    solve();
+}
+
+function update_subjectTo_coef() {
+    for(let j=0; j < processed.length; j++) {
+        for(let i=0; i < raw.length; i++) {
+            problem.subjectTo[j].vars[i].coef = base_yield[raw[i]][processed[j]] / m3per100units[raw[i]] * rate[raw[i]] * capacity;
+        }
+    }
+}
+
+function update_quantity(element) {
+    quantity = element.value;
+    update_target(selected);
+}
+
 function update_target(element) {
+    selected = element;
     for(let i = 0; i < processed.length; i++) {
         var num = targets_list[element.value].resources[processed[i]];
-        document.getElementById(processed[i]).value = num;
-        problem.subjectTo[i].bnds.lb = num;
+        document.getElementById(processed[i]+"-target").value = num * quantity;
+        update_subjectTo_bnds(i);
     }
     solve();
+}
+
+function update_processed(num) {
+    update_subjectTo_bnds(num);
+    solve();
+}
+
+function update_subjectTo_bnds(num) {
+    var credit = document.getElementById(processed[num] + "-credit").value;
+    var target = document.getElementById(processed[num] + "-target").value;
+    problem.subjectTo[num].bnds.lb = target - credit;
 }
 
 function update(element) {

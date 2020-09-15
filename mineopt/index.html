@@ -40,13 +40,13 @@
                 <label>Common</label>
             </div>
             <div class="col col-md-1">
-              <input type="number" class="form-control form-control-sm">
+              <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Common', 'Basic')">
             </div>
             <div class="col col-md-1">
-              <input type="number" class="form-control form-control-sm">
+              <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Common', 'Advanced')">
             </div>
             <div class="col col-md-1 border-right">
-              <input type="number" class="form-control form-control-sm">
+              <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Common', 'Expert')">
             </div>
             <div class="col col-md-1">
             </div>
@@ -56,13 +56,13 @@
                 <label>Uncommon</label>
             </div>
             <div class="col col-md-1">
-              <input type="number" class="form-control form-control-sm">
-            </div>
-            <div class="col col-md-1">
-              <input type="number" class="form-control form-control-sm">
-            </div>
-            <div class="col col-md-1 border-right">
-              <input type="number" class="form-control form-control-sm">
+              <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Uncommon', 'Basic')">
+            </div>                                                                                                           
+            <div class="col col-md-1">                                                                                       
+              <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Uncommon', 'Advanced')">
+            </div>                                                                                                           
+            <div class="col col-md-1 border-right">                                                                          
+              <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Uncommon', 'Expert')">
             </div>
             <div class="col col-md-1 text-center">
                 <label>Cargo</label>
@@ -73,16 +73,16 @@
                 <label>Special</label>
             </div>
             <div class="col col-md-1">
-              <input type="number" class="form-control form-control-sm">
+              <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Special', 'Basic')">
+            </div>                                                                                                           
+            <div class="col col-md-1">                                                                                       
+              <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Special', 'Advanced')">
+            </div>                                                                                                           
+            <div class="col col-md-1 border-right">                                                                          
+              <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Special', 'Expert')">
             </div>
             <div class="col col-md-1">
-              <input type="number" class="form-control form-control-sm">
-            </div>
-            <div class="col col-md-1 border-right">
-              <input type="number" class="form-control form-control-sm">
-            </div>
-            <div class="col col-md-1">
-              <input type="number" class="form-control form-control-sm" placeholder="Volume">
+              <input type="number" class="form-control form-control-sm" placeholder="Volume" oninput="update_capacity(this)">
             </div>
           </div>
           <div class="form-row">
@@ -90,13 +90,13 @@
                 <label>Rare</label>
             </div>
             <div class="col col-md-1">
-              <input type="number" class="form-control form-control-sm">
-            </div>
-            <div class="col col-md-1">
-              <input type="number" class="form-control form-control-sm">
-            </div>
-            <div class="col col-md-1 border-right">
-              <input type="number" class="form-control form-control-sm">
+              <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Rare', 'Basic')">
+            </div>                                                                                                           
+            <div class="col col-md-1">                                                                                       
+              <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Rare', 'Advanced')">
+            </div>                                                                                                           
+            <div class="col col-md-1 border-right">                                                                          
+              <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Rare', 'Expert')">
             </div>
             <div class="col col-md-1">
             </div>
@@ -106,13 +106,13 @@
                 <label>Precious</label>
             </div>
             <div class="col col-md-1">
-              <input type="number" class="form-control form-control-sm">
-            </div>
-            <div class="col col-md-1">
-              <input type="number" class="form-control form-control-sm">
-            </div>
-            <div class="col col-md-1 border-right">
-              <input type="number" class="form-control form-control-sm">
+              <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Precious', 'Basic')">
+            </div>                                                                                                           
+            <div class="col col-md-1">                                                                                       
+              <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Precious', 'Advanced')">
+            </div>                                                                                                           
+            <div class="col col-md-1 border-right">                                                                          
+              <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Precious', 'Expert')">
             </div>
             <div class="col col-md-1">
             </div>
@@ -127,20 +127,21 @@
                     </select>
                 </div>
             <div class="col-4 col-md-2">
-                <input class="form-control" type="number" placeholder="Quantity">
+                <input class="form-control" type="number" placeholder="Quantity" oninput="update_quantity(this);">
                 </div>
             </div>
         </form>
+
         <form>
             <div class="form-row">
                 <div class="col-3 col-md-1 text-right">
                     <label>Tritanium</label>
                 </div>
                 <div class="col-4 col-md-2">
-                    <input class="form-control form-control-sm text-right" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm text-right" id="Tritanium-credit" type="number" oninput="update_processed(0);">
                 </div>
                 <div class="col-4 col-md-2 slash">
-                    <input class="form-control form-control-sm text-right text-right" id="Tritanium" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm text-right" id="Tritanium-target" type="number" oninput="update_processed(0);">
                 </div>
             </div>
             <div class="form-row">
@@ -148,10 +149,10 @@
                     <label>Pyerite</label>
                 </div>
                 <div class="col-4 col-md-2">
-                    <input class="form-control form-control-sm text-right" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm text-right" id="Pyerite-credit" type="number" oninput="update_processed(1);">
                 </div>
                 <div class="col-4 col-md-2 slash">
-                    <input class="form-control form-control-sm text-right" id="Pyerite" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm text-right" id="Pyerite-target" type="number" oninput="update_processed(1);">
                 </div>
             </div>
             <div class="form-row">
@@ -159,10 +160,10 @@
                     <label>Mexallon</label>
                 </div>
                 <div class="col-4 col-md-2">
-                    <input class="form-control form-control-sm text-right" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm text-right" id="Mexallon-credit" type="number" oninput="update_processed(2);">
                 </div>
                 <div class="col-4 col-md-2 slash">
-                    <input class="form-control form-control-sm text-right" id="Mexallon" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm text-right" id="Mexallon-target" type="number" oninput="update_processed(2);">
                 </div>
             </div>
             <div class="form-row">
@@ -170,10 +171,10 @@
                     <label>Isogen</label>
                 </div>
                 <div class="col-4 col-md-2">
-                    <input class="form-control form-control-sm text-right" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm text-right" id="Isogen-credit" type="number" oninput="update_processed(3);">
                 </div>
                 <div class="col-4 col-md-2 slash">
-                    <input class="form-control form-control-sm text-right" id="Isogen" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm text-right" id="Isogen-target" type="number" oninput="update_processed(3);">
                 </div>
             </div>
             <div class="form-row">
@@ -181,10 +182,10 @@
                     <label>Nocxium</label>
                 </div>
                 <div class="col-4 col-md-2">
-                    <input class="form-control form-control-sm text-right" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm text-right" id="Nocxium-credit" type="number" oninput="update_processed(4);">
                 </div>
                 <div class="col-4 col-md-2 slash">
-                    <input class="form-control form-control-sm text-right" id="Nocxium" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm text-right" id="Nocxium-target" type="number" oninput="update_processed(4);">
                 </div>
             </div>
             <div class="form-row">
@@ -192,10 +193,10 @@
                     <label>Zydrine</label>
                 </div>
                 <div class="col-4 col-md-2">
-                    <input class="form-control form-control-sm text-right" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm text-right" id="Zydrine-credit" type="number" oninput="update_processed(5);">
                 </div>
                 <div class="col-4 col-md-2 slash">
-                    <input class="form-control form-control-sm text-right" id="Zydrine" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm text-right" id="Zydrine-target" type="number" oninput="update_processed(5);">
                 </div>
             </div>
             <div class="form-row">
@@ -203,10 +204,10 @@
                     <label>Megacyte</label>
                 </div>
                 <div class="col-4 col-md-2">
-                    <input class="form-control form-control-sm text-right" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm text-right" id="Megacyte-credit" type="number" oninput="update_processed(6);">
                 </div>
                 <div class="col-4 col-md-2 slash">
-                    <input class="form-control form-control-sm text-right" id="Megacyte" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm text-right" id="Megacyte-target" type="number" oninput="update_processed(6);">
                 </div>
             </div>
             <div class="form-row">
@@ -214,10 +215,10 @@
                     <label>Morphite</label>
                 </div>
                 <div class="col-4 col-md-2">
-                    <input class="form-control form-control-sm text-right" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm text-right" id="Morphite-credit" type="number" oninput="update_processed(7);">
                 </div>
                 <div class="col-4 col-md-2 slash">
-                    <input class="form-control form-control-sm text-right" id="Morphite" type="number" oninput="update(this);">
+                    <input class="form-control form-control-sm text-right" id="Morphite-target" type="number" oninput="update_processed(7);">
                 </div>
             </div>
         </form>
