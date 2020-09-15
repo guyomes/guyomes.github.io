@@ -26,9 +26,12 @@ glpk.onmessage = (evt) => {
         }
         if(round_trips > 0) {
             document.getElementById("Total").value = round_trips;
-            document.getElementById("Time").value = round_trips * time;
         } else {
             document.getElementById("Total").value = "";
+        }
+        if(time > 0) {
+            document.getElementById("Time").value = round_trips * time;
+        } else {
             document.getElementById("Time").value = "";
         }
         //console.log(evt.data);
