@@ -1,5 +1,6 @@
 <html>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
     <head>
         <title> Mine optimization </title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
@@ -18,137 +19,140 @@
         </style>
     </head>
     <body onload="init();">
-
+        <div class="row">
+            <h1 class="col-12 col-md-5 text-center"> Mine Optimizer </h1>
+        </div>
         <form>
           <div class="form-row">
-            <div class="col col-md-1">
+            <div class="col-2 col-md-1">
             </div>
-            <div class="col col-md-1 text-center">
+            <div class="col-2 col-md-1 text-center">
                 <label>Basic</label>
             </div>
-            <div class="col col-md-1 text-center">
+            <div class="col-3 col-md-1 text-center">
                 <label>Advanced</label>
             </div>
-            <div class="col col-md-1 text-center">
+            <div class="col-2 col-md-1 text-center">
                 <label>Expert</label>
             </div>
-            <div class="col col-md-1 text-center">
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="col col-md-1 text-right">
-                <label>Common</label>
-            </div>
-            <div class="col col-md-1">
-              <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Common', 'Basic')">
-            </div>
-            <div class="col col-md-1">
-              <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Common', 'Advanced')">
-            </div>
-            <div class="col col-md-1 border-right">
-              <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Common', 'Expert')">
-            </div>
-            <div class="col col-md-1">
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="col col-md-1 text-right">
-                <label>Uncommon</label>
-            </div>
-            <div class="col col-md-1">
-              <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Uncommon', 'Basic')">
-            </div>                                                                                                           
-            <div class="col col-md-1">                                                                                       
-              <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Uncommon', 'Advanced')">
-            </div>                                                                                                           
-            <div class="col col-md-1 border-right">                                                                          
-              <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Uncommon', 'Expert')">
-            </div>
-            <div class="col col-md-1 text-center">
+            <div class="col-3 col-md-1 text-center">
                 <label>Cargo</label>
             </div>
           </div>
           <div class="form-row">
-            <div class="col col-md-1 text-right">
-                <label>Special</label>
+            <div class="col-3 col-md-1 text-right">
+                <label>Common</label>
             </div>
-            <div class="col col-md-1">
-              <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Special', 'Basic')">
-            </div>                                                                                                           
-            <div class="col col-md-1">                                                                                       
-              <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Special', 'Advanced')">
-            </div>                                                                                                           
-            <div class="col col-md-1 border-right">                                                                          
-              <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Special', 'Expert')">
+            <div class="col-2 col-md-1">
+              <input type="number" class="form-control form-control-sm small-input" oninput="update_skills(this, 'Common', 'Basic')">
             </div>
-            <div class="col col-md-1">
-              <input type="number" class="form-control form-control-sm" placeholder="Volume" oninput="update_capacity(this)">
+            <div class="col-2 col-md-1">
+              <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Common', 'Advanced')">
+            </div>
+            <div class="col-2 col-md-1 border-right">
+              <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Common', 'Expert')">
+            </div>
+            <div class="col-3 col-md-1 text-center">
+                <label>Capacity</label>
             </div>
           </div>
           <div class="form-row">
-            <div class="col col-md-1 text-right">
+            <div class="col-3 col-md-1 text-right">
+                <label>Uncommon</label>
+            </div>
+            <div class="col-2 col-md-1">
+              <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Uncommon', 'Basic')">
+            </div>                                                                                                           
+            <div class="col-2 col-md-1">                                                                                       
+              <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Uncommon', 'Advanced')">
+            </div>                                                                                                           
+            <div class="col-2 col-md-1 border-right">                                                                          
+              <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Uncommon', 'Expert')">
+            </div>
+            <div class="col-3 col-md-1">
+              <input type="number" class="form-control form-control-sm" placeholder="m³" oninput="update_capacity(this)">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-3 col-md-1 text-right">
+                <label>Special</label>
+            </div>
+            <div class="col-2 col-md-1">
+              <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Special', 'Basic')">
+            </div>                                                                                                           
+            <div class="col-2 col-md-1">                                                                                       
+              <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Special', 'Advanced')">
+            </div>                                                                                                           
+            <div class="col-2 col-md-1 border-right">                                                                          
+              <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Special', 'Expert')">
+            </div>
+            <div class="col-3 col-md-0">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-3 col-md-1 text-right">
                 <label>Rare</label>
             </div>
-            <div class="col col-md-1">
+            <div class="col-2 col-md-1">
               <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Rare', 'Basic')">
             </div>                                                                                                           
-            <div class="col col-md-1">                                                                                       
+            <div class="col-2 col-md-1">                                                                                       
               <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Rare', 'Advanced')">
             </div>                                                                                                           
-            <div class="col col-md-1 border-right">                                                                          
+            <div class="col-2 col-md-1 border-right">                                                                          
               <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Rare', 'Expert')">
             </div>
-            <div class="col col-md-1">
+            <div class="col-3 col-md-1 text-center">
+                <label>Round trip</label>
             </div>
           </div>
-          <div class="form-row border-bottom">
-            <div class="col col-md-1 text-right">
+          <div class="form-row">
+            <div class="col-3 col-md-1 text-right">
                 <label>Precious</label>
             </div>
-            <div class="col col-md-1">
+            <div class="col-2 col-md-1 border-bottom pb-1">
               <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Precious', 'Basic')">
             </div>                                                                                                           
-            <div class="col col-md-1">                                                                                       
+            <div class="col-2 col-md-1 border-bottom">
               <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Precious', 'Advanced')">
             </div>                                                                                                           
-            <div class="col col-md-1 border-right">                                                                          
+            <div class="col-2 col-md-1 border-right border-bottom">                                                                          
               <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Precious', 'Expert')">
             </div>
-            <div class="col col-md-1">
+            <div class="col-3 col-md-1">
+              <input type="number" class="form-control form-control-sm" placeholder="minutes" oninput="update_time(this)">
             </div>
           </div>
-          <div class="form-row border-bottom">
-            <div class="col col-md-1 text-right">
+          <div class="form-row">
+            <div class="col-3 col-md-1 text-right pt-1">
                 <label>Production</label>
             </div>
-            <div class="col col-md-1">
+            <div class="col-2 col-md-1 pt-1">
               <input type="number" class="form-control form-control-sm" oninput="update_production(this, 'Basic')">
             </div>                                                                                                           
-            <div class="col col-md-1">                                                                                       
+            <div class="col-2 col-md-1 pt-1">                                                                                       
               <input type="number" class="form-control form-control-sm" oninput="update_production(this, 'Advanced')">
             </div>                                                                                                           
-            <div class="col col-md-1 border-right">                                                                          
+            <div class="col-2 col-md-1 border-right pt-1">                                                                          
               <input type="number" class="form-control form-control-sm" oninput="update_production(this, 'Expert')">
             </div>
-            <div class="col col-md-1">
+            <div class="col-3 col-md-1">
             </div>
           </div>
         </form>
 
         <form>
-            <div class="form-row">
+            <div class="form-row mb-3">
                 <div class="col-8 col-md-3">
                     <select class="custom-select form-control" id="Targets_list" onchange="update_target(this);">
                         <option selected>Choose target ...</option>
                     </select>
                 </div>
-            <div class="col-4 col-md-2">
-                <input class="form-control" type="number" placeholder="Quantity" oninput="update_quantity(this);">
+                <div class="col-4 col-md-2">
+                    <input class="form-control" type="number" placeholder="Quantity" oninput="update_quantity(this);">
                 </div>
             </div>
-        </form>
 
-        <form>
             <div class="form-row">
                 <div class="col-3 col-md-1 text-right">
                     <label>Tritanium</label>
@@ -238,21 +242,39 @@
                 </div>
             </div>
         </form>
+            <div class="col-8 offset-2 col-md-3 offset-md-1">
+                <hr/>
+            </div>
 
-        <h1> Results </h1>
         <form>
+            <div class="form-row">
+                <div class="col-4 offset-3 col-md-1 offset-md-2 text-center">
+                    <label>Round trips</label>
+                </div>
+                <div class="col-4 col-md-1 text-center">
+                    <label>Time</label>
+                </div>
+            </div>
+            <div class="form-row mb-3">
+                <div class="col-2 offset-4 col-md-1 offset-md-2">
+                    <input class="form-control form-control-sm" id="Total" readonly>
+                </div>
+                <div class="col-2 offset-2 col-md-1 offset-md-0">
+                    <input class="form-control form-control-sm" id="Time" readonly>
+                </div>
+            </div>
             <div class="form-row">
                 <div class="col-3 col-md-1 text-right">
                     <label>Hedbergite</label>
                 </div>
                 <div class="col-2 col-md-1">
-                    <input class="form-control form-control-sm" id="Hedbergite" type="number" readonly>
+                    <input class="form-control form-control-sm" id="Hedbergite" readonly>
                 </div>
                 <div class="col-3 col-md-1 offset-1 text-right">
                     <label>Veldspar</label>
                 </div>
                 <div class="col-2 col-md-1">
-                    <input class="form-control form-control-sm" id="Veldspar" type="number" readonly>
+                    <input class="form-control form-control-sm" id="Veldspar" readonly>
                 </div>
             </div>
             <div class="form-row">
@@ -260,13 +282,13 @@
                     <label>Spodumain</label>
                 </div>
                 <div class="col-2 col-md-1">
-                    <input class="form-control form-control-sm" id="Spodumain" type="number" readonly>
+                    <input class="form-control form-control-sm" id="Spodumain" readonly>
                 </div>
                 <div class="col-3 col-md-1 offset-1 text-right">
                     <label>Scordite</label>
                 </div>
                 <div class="col-2 col-md-1">
-                    <input class="form-control form-control-sm" id="Scordite" type="number" readonly>
+                    <input class="form-control form-control-sm" id="Scordite" readonly>
                 </div>
             </div>
             <div class="form-row">
@@ -274,13 +296,13 @@
                     <label>Dark Ochre</label>
                 </div>
                 <div class="col-2 col-md-1">
-                    <input class="form-control form-control-sm" id="Dark_Ochre" type="number" readonly>
+                    <input class="form-control form-control-sm" id="Dark_Ochre" readonly>
                 </div>
                 <div class="col-3 col-md-1 offset-1 text-right">
                     <label>Pyroxeres</label>
                 </div>
                 <div class="col-2 col-md-1">
-                    <input class="form-control form-control-sm" id="Pyroxeres" type="number" readonly>
+                    <input class="form-control form-control-sm" id="Pyroxeres" readonly>
                 </div>
             </div>
             <div class="form-row">
@@ -288,13 +310,13 @@
                     <label>Gneiss</label>
                 </div>
                 <div class="col-2 col-md-1">
-                    <input class="form-control form-control-sm" id="Gneiss" type="number" readonly>
+                    <input class="form-control form-control-sm" id="Gneiss" readonly>
                 </div>
                 <div class="col-3 col-md-1 offset-1 text-right">
                     <label>Plagioclase</label>
                 </div>
                 <div class="col-2 col-md-1">
-                    <input class="form-control form-control-sm" id="Plagioclase" type="number" readonly>
+                    <input class="form-control form-control-sm" id="Plagioclase" readonly>
                 </div>
             </div>
             <div class="form-row">
@@ -302,13 +324,13 @@
                     <label>Crockite</label>
                 </div>
                 <div class="col-2 col-md-1">
-                    <input class="form-control form-control-sm" id="Crockite" type="number" readonly>
+                    <input class="form-control form-control-sm" id="Crockite" readonly>
                 </div>
                 <div class="col-3 col-md-1 offset-1 text-right">
                     <label>Omber</label>
                 </div>
                 <div class="col-2 col-md-1">
-                    <input class="form-control form-control-sm" id="Omber" type="number" readonly>
+                    <input class="form-control form-control-sm" id="Omber" readonly>
                 </div>
             </div>
             <div class="form-row">
@@ -316,13 +338,13 @@
                     <label>Bistot</label>
                 </div>
                 <div class="col-2 col-md-1">
-                    <input class="form-control form-control-sm" id="Bistot" type="number" readonly>
+                    <input class="form-control form-control-sm" id="Bistot" readonly>
                 </div>
                 <div class="col-3 col-md-1 offset-1 text-right">
                     <label>Kernit</label>
                 </div>
                 <div class="col-2 col-md-1">
-                    <input class="form-control form-control-sm" id="Kernit" type="number" readonly>
+                    <input class="form-control form-control-sm" id="Kernit" readonly>
                 </div>
             </div>
             <div class="form-row">
@@ -330,13 +352,13 @@
                     <label>Arkonor</label>
                 </div>
                 <div class="col-2 col-md-1">
-                    <input class="form-control form-control-sm" id="Arkonor" type="number" readonly>
+                    <input class="form-control form-control-sm" id="Arkonor" readonly>
                 </div>
                 <div class="col-3 col-md-1 offset-1 text-right">
                     <label>Jaspet</label>
                 </div>
                 <div class="col-2 col-md-1">
-                    <input class="form-control form-control-sm" id="Jaspet" type="number" readonly>
+                    <input class="form-control form-control-sm" id="Jaspet" readonly>
                 </div>
             </div>
             <div class="form-row">
@@ -344,13 +366,13 @@
                     <label>Mercoxit</label>
                 </div>
                 <div class="col-2 col-md-1">
-                    <input class="form-control form-control-sm" id="Mercoxit" type="number" readonly>
+                    <input class="form-control form-control-sm" id="Mercoxit" readonly>
                 </div>
                 <div class="col-3 col-md-1 offset-1 text-right">
                     <label>Hemorphite</label>
                 </div>
                 <div class="col-2 col-md-1">
-                    <input class="form-control form-control-sm" id="Hemorphite" type="number" readonly>
+                    <input class="form-control form-control-sm" id="Hemorphite" readonly>
                 </div>
             </div>
         </form>

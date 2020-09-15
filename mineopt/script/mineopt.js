@@ -14,13 +14,25 @@ glpk.onerror = (err) => {
 };
 glpk.onmessage = (evt) => {
     if(evt.data.result) {
+        var round_trips = 0;
         for(let i = 0; i < raw.length; i++) {
             var num = evt.data.result.vars[raw[i]];
             if(num > 0) { 
                 document.getElementById(raw[i]).value = num;
+                round_trips += num;
             } else {
                 document.getElementById(raw[i]).value = "";
             }
+        }
+        if(round_trips > 0) {
+            document.getElementById("Total").value = round_trips;
+        } else {
+            document.getElementById("Total").value = "";
+        }
+        if(time > 0) {
+            document.getElementById("Time").value = round_trips * time;
+        } else {
+            document.getElementById("Time").value = "";
         }
         //console.log(evt.data);
     }
@@ -31,6 +43,7 @@ var base_yield = null;
 var m3per100units = null;
 var problem = null;
 var test = null;
+var time = 0;
 
 var raw = [
   "Veldspar",
@@ -75,7 +88,7 @@ var skills = {
     "Uncommon": {"Basic": 0, "Advanced": 0, "Expert": 0},
     "Special": {"Basic": 0, "Advanced": 0, "Expert": 0},
     "Rare": {"Basic": 0, "Advanced": 0, "Expert": 0},
-    "Precious": {"Basic": 0, "Advanced": 0, "Expert": 0}
+    "Precious": {"Basic": 0, "Advanced": 0, "Expert": 0},
     "Production": {"Basic": 0, "Advanced": 0, "Expert": 0}
 }
 
@@ -151,10 +164,10 @@ async function init_problem() {
 }
 
 function update_production(element, level) {
-    skills[type][level] = element.value;
-    target_rate = (150 - skills[type]["Basic"] * 6
-                       - skills[type]["Advanced"] * 4
-                       - skills[type]["Expert"])
+    skills["Production"][level] = element.value;
+    target_rate = (150 - skills["Production"]["Basic"] * 6
+                       - skills["Production"]["Advanced"] * 4
+                       - skills["Production"]["Expert"])
                   / 150;
     update_target(selected);
 }
@@ -170,6 +183,11 @@ function update_skills(element, type, level) {
             + (skills[type]["Advanced"] > 0 ? 0.3*0.05 : 0);
     }
     update_subjectTo_coef();
+    solve();
+}
+
+function update_time(element) {
+    time = element.value;
     solve();
 }
 
@@ -197,7 +215,7 @@ function update_target(element) {
     if(selected) {
         for(let i = 0; i < processed.length; i++) {
             var num = targets_list[element.value].resources[processed[i]];
-            document.getElementById(processed[i]+"-target").value = num * quantity * target_rate;
+            document.getElementById(processed[i]+"-target").value = Math.round(num * quantity * target_rate);
             update_subjectTo_bnds(i);
         }
         solve();
