@@ -14,13 +14,22 @@ glpk.onerror = (err) => {
 };
 glpk.onmessage = (evt) => {
     if(evt.data.result) {
+        var round_trips = 0;
         for(let i = 0; i < raw.length; i++) {
             var num = evt.data.result.vars[raw[i]];
             if(num > 0) { 
                 document.getElementById(raw[i]).value = num;
+                round_trips += num;
             } else {
                 document.getElementById(raw[i]).value = "";
             }
+        }
+        if(round_trips > 0) {
+            document.getElementById("Total").value = round_trips;
+            document.getElementById("Time").value = round_trips * time;
+        } else {
+            document.getElementById("Total").value = "";
+            document.getElementById("Time").value = "";
         }
         //console.log(evt.data);
     }
@@ -31,6 +40,7 @@ var base_yield = null;
 var m3per100units = null;
 var problem = null;
 var test = null;
+var time = 0;
 
 var raw = [
   "Veldspar",
@@ -159,6 +169,11 @@ function update_skills(element, type, level) {
             + (skills[type]["Advanced"] > 0 ? 0.3*0.05 : 0);
     }
     update_subjectTo_coef();
+    solve();
+}
+
+function update_time(element) {
+    time = element.value;
     solve();
 }
 
