@@ -89,7 +89,12 @@ var skills = {
     "Special": {"Basic": 0, "Advanced": 0, "Expert": 0},
     "Rare": {"Basic": 0, "Advanced": 0, "Expert": 0},
     "Precious": {"Basic": 0, "Advanced": 0, "Expert": 0},
-    "Production": {"Basic": 0, "Advanced": 0, "Expert": 0}
+    "Frigates": {"Basic": 0, "Advanced": 0, "Expert": 0},
+    "Destroyer": {"Basic": 0, "Advanced": 0, "Expert": 0},
+    "Cruiser": {"Basic": 0, "Advanced": 0, "Expert": 0},
+    "Battlecruiser": {"Basic": 0, "Advanced": 0, "Expert": 0},
+    "Battleship": {"Basic": 0, "Advanced": 0, "Expert": 0},
+    "Industrial": {"Basic": 0, "Advanced": 0, "Expert": 0}
 }
 
 var rate = {
@@ -111,7 +116,14 @@ var rate = {
   "Mercoxit": 0.3
 }
 
-var target_rate = 1;
+var target_rate = {
+    "Frigates": 1,
+    "Destroyer": 1,
+    "Cruiser": 1,
+    "Battlecruiser": 1,
+    "Battleship": 1,
+    "Industrial": 1
+}
 var capacity = 0;
 var quantity = 1;
 
@@ -120,7 +132,7 @@ async function fill_targets() {
     var targets_select = document.getElementById('Targets_list');
     for(i = 0; i < targets_list.length; i++) {
         var option = document.createElement('option');
-        option.text = targets_list[i].name;
+        option.text = targets_list[i].name + " (" + targets_list[i].type + ")";
         option.value = i;
         targets_select.add(option);
     }
@@ -163,12 +175,12 @@ async function init_problem() {
     }
 }
 
-function update_production(element, level) {
-    skills["Production"][level] = element.value;
-    target_rate = (150 - skills["Production"]["Basic"] * 6
-                       - skills["Production"]["Advanced"] * 4
-                       - skills["Production"]["Expert"])
-                  / 150;
+function update_production(element, type, level) {
+    skills[type][level] = element.value;
+    target_rate[type] = (150 - skills[type]["Basic"] * 6
+                             - skills[type]["Advanced"] * 4
+                             - skills[type]["Expert"])
+                        / 150;
     update_target(selected);
 }
 
@@ -215,7 +227,8 @@ function update_target(element) {
     if(selected) {
         for(let i = 0; i < processed.length; i++) {
             var num = targets_list[element.value].resources[processed[i]];
-            document.getElementById(processed[i]+"-target").value = Math.round(num * quantity * target_rate);
+            var type = targets_list[element.value].type;
+            document.getElementById(processed[i]+"-target").value = Math.round(num * quantity * target_rate[type]);
             update_subjectTo_bnds(i);
         }
         solve();

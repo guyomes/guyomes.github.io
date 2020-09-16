@@ -49,7 +49,7 @@
             <div class="col-2 col-md-1">
               <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Common', 'Advanced')">
             </div>
-            <div class="col-2 col-md-1 border-right">
+            <div class="col-2 col-md-1">
               <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Common', 'Expert')">
             </div>
             <div class="col-3 col-md-1 text-center">
@@ -66,7 +66,7 @@
             <div class="col-2 col-md-1">                                                                                       
               <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Uncommon', 'Advanced')">
             </div>                                                                                                           
-            <div class="col-2 col-md-1 border-right">                                                                          
+            <div class="col-2 col-md-1">                                                                          
               <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Uncommon', 'Expert')">
             </div>
             <div class="col-3 col-md-1">
@@ -83,7 +83,7 @@
             <div class="col-2 col-md-1">                                                                                       
               <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Special', 'Advanced')">
             </div>                                                                                                           
-            <div class="col-2 col-md-1 border-right">                                                                          
+            <div class="col-2 col-md-1">                                                                          
               <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Special', 'Expert')">
             </div>
             <div class="col-3 col-md-0">
@@ -99,24 +99,24 @@
             <div class="col-2 col-md-1">                                                                                       
               <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Rare', 'Advanced')">
             </div>                                                                                                           
-            <div class="col-2 col-md-1 border-right">                                                                          
+            <div class="col-2 col-md-1">                                                                          
               <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Rare', 'Expert')">
             </div>
             <div class="col-3 col-md-1 text-center">
                 <label>Round trip</label>
             </div>
           </div>
-          <div class="form-row">
+          <div class="form-row mb-3">
             <div class="col-3 col-md-1 text-right">
                 <label>Precious</label>
             </div>
-            <div class="col-2 col-md-1 border-bottom pb-1">
+            <div class="col-2 col-md-1">
               <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Precious', 'Basic')">
             </div>                                                                                                           
-            <div class="col-2 col-md-1 border-bottom">
+            <div class="col-2 col-md-1">
               <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Precious', 'Advanced')">
             </div>                                                                                                           
-            <div class="col-2 col-md-1 border-right border-bottom">                                                                          
+            <div class="col-2 col-md-1">                                                                          
               <input type="number" class="form-control form-control-sm" oninput="update_skills(this, 'Precious', 'Expert')">
             </div>
             <div class="col-3 col-md-1">
@@ -124,22 +124,106 @@
             </div>
           </div>
           <div class="form-row">
-            <div class="col-3 col-md-1 text-right pt-1">
-                <label>Production</label>
+            <div class="col-3 col-md-1 text-right">
+                <label>Frigates</label>
             </div>
-            <div class="col-2 col-md-1 pt-1">
-              <input type="number" class="form-control form-control-sm" oninput="update_production(this, 'Basic')">
+            <div class="col-2 col-md-1">
+              <input type="number" class="form-control form-control-sm" oninput="update_production(this, 'Frigates', 'Basic')">
             </div>                                                                                                           
-            <div class="col-2 col-md-1 pt-1">                                                                                       
-              <input type="number" class="form-control form-control-sm" oninput="update_production(this, 'Advanced')">
+            <div class="col-2 col-md-1">                                                                                       
+              <input type="number" class="form-control form-control-sm" oninput="update_production(this, 'Frigates',  'Advanced')">
             </div>                                                                                                           
-            <div class="col-2 col-md-1 border-right pt-1">                                                                          
-              <input type="number" class="form-control form-control-sm" oninput="update_production(this, 'Expert')">
+            <div class="col-2 col-md-1">                                                                          
+              <input type="number" class="form-control form-control-sm" oninput="update_production(this, 'Frigates',  'Expert')">
+            </div>
+            <div class="col-3 col-md-1">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-3 col-md-1 text-right">
+                <label>Destroyer</label>
+            </div>
+            <div class="col-2 col-md-1">
+              <input type="number" class="form-control form-control-sm" oninput="update_production(this, 'Destroyer', 'Basic')">
+            </div>                                                                                                           
+            <div class="col-2 col-md-1">                                                                                       
+              <input type="number" class="form-control form-control-sm" oninput="update_production(this, 'Destroyer',  'Advanced')">
+            </div>                                                                                                           
+            <div class="col-2 col-md-1">                                                                          
+              <input type="number" class="form-control form-control-sm" oninput="update_production(this, 'Destroyer',  'Expert')">
+            </div>
+            <div class="col-3 col-md-1">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-3 col-md-1 text-right">
+                <label>Cruiser</label>
+            </div>
+            <div class="col-2 col-md-1">
+              <input type="number" class="form-control form-control-sm" oninput="update_production(this, 'Cruiser', 'Basic')">
+            </div>                                                                                                           
+            <div class="col-2 col-md-1">                                                                                       
+              <input type="number" class="form-control form-control-sm" oninput="update_production(this, 'Cruiser',  'Advanced')">
+            </div>                                                                                                           
+            <div class="col-2 col-md-1">                                                                          
+              <input type="number" class="form-control form-control-sm" oninput="update_production(this, 'Cruiser',  'Expert')">
+            </div>
+            <div class="col-3 col-md-1">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-3 col-md-1 text-right">
+                <label>Battlecruiser</label>
+            </div>
+            <div class="col-2 col-md-1">
+              <input type="number" class="form-control form-control-sm" oninput="update_production(this, 'Battlecruiser', 'Basic')">
+            </div>                                                                                                           
+            <div class="col-2 col-md-1">                                                                                       
+              <input type="number" class="form-control form-control-sm" oninput="update_production(this, 'Battlecruiser',  'Advanced')">
+            </div>                                                                                                           
+            <div class="col-2 col-md-1">                                                                          
+              <input type="number" class="form-control form-control-sm" oninput="update_production(this, 'Battlecruiser',  'Expert')">
+            </div>
+            <div class="col-3 col-md-1">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-3 col-md-1 text-right">
+                <label>Battleship</label>
+            </div>
+            <div class="col-2 col-md-1">
+              <input type="number" class="form-control form-control-sm" oninput="update_production(this, 'Battleship', 'Basic')">
+            </div>                                                                                                           
+            <div class="col-2 col-md-1">                                                                                       
+              <input type="number" class="form-control form-control-sm" oninput="update_production(this, 'Battleship',  'Advanced')">
+            </div>                                                                                                           
+            <div class="col-2 col-md-1">                                                                          
+              <input type="number" class="form-control form-control-sm" oninput="update_production(this, 'Battleship',  'Expert')">
+            </div>
+            <div class="col-3 col-md-1">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-3 col-md-1 text-right">
+                <label>Industrial</label>
+            </div>
+            <div class="col-2 col-md-1">
+              <input type="number" class="form-control form-control-sm" oninput="update_production(this, 'Industrial', 'Basic')">
+            </div>                                                                                                           
+            <div class="col-2 col-md-1">                                                                                       
+              <input type="number" class="form-control form-control-sm" oninput="update_production(this, 'Industrial',  'Advanced')">
+            </div>                                                                                                           
+            <div class="col-2 col-md-1">                                                                          
+              <input type="number" class="form-control form-control-sm" oninput="update_production(this, 'Industrial',  'Expert')">
             </div>
             <div class="col-3 col-md-1">
             </div>
           </div>
         </form>
+
+        <div class="col-8 offset-2 col-md-3 offset-md-1">
+            <hr/>
+        </div>
 
         <form>
             <div class="form-row mb-3">

@@ -1,6 +1,7 @@
 [
   {
     "name": "Retriever",
+    "type": "Industrial",
     "resources": {
       "Tritanium": 3925214,
       "Pyerite":    966006,
