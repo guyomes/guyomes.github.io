@@ -1,0 +1,3 @@
+[submodule "guangzhou"]
+	path = guangzhou
+	url = git@github.com:guyomes/guangzhou.git
